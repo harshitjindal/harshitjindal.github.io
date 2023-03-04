@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome file</title>
+  <title>DevOps Assignment 1</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
@@ -24,18 +24,17 @@
 <li><a href="#methodology">Methodology</a></li>
 <li><a href="#steps">Steps</a>
 <ul>
-<li><a href="#create-a-repository">Create a repository</a></li>
-<li><a href="#add-two-directories-and-some-raw-code-files-to-the-repository">Add two directories and some raw code files to the repository</a></li>
-<li><a href="#move-code-from-one-directory-to-the-other-directory">Move code from one directory to the other directory</a></li>
-<li><a href="#update-one-source-code-file-and-display-the-difference">Update one source code file and display the difference</a></li>
-<li><a href="#create-a-branch-feature-branch">Create a branch (feature-branch)</a></li>
-<li><a href="#add-some-raw-code-to-feature-branch">Add some raw code to feature-branch</a></li>
-<li><a href="#merge-feature-branch-into-main">Merge feature-branch into main</a></li>
-<li><a href="#push-changes-to-github">Push changes to GitHub</a></li>
+<li><a href="#create-a-repository">1. Create a repository</a></li>
+<li><a href="#add-two-directories-and-some-raw-code-files-to-the-repository">2. Add two directories and some raw code files to the repository</a></li>
+<li><a href="#move-code-from-one-directory-to-the-other-directory">3. Move code from one directory to the other directory</a></li>
+<li><a href="#update-one-source-code-file-and-display-the-difference">4. Update one source code file and display the difference</a></li>
+<li><a href="#create-a-branch-feature-branch">5. Create a branch (feature-branch)</a></li>
+<li><a href="#add-some-raw-code-to-feature-branch">6. Add some raw code to feature-branch</a></li>
+<li><a href="#merge-feature-branch-into-main">7. Merge feature-branch into main</a></li>
+<li><a href="#push-changes-to-github">8. Push changes to GitHub</a></li>
 </ul>
 </li>
 <li><a href="#advantages-of-dvcs-over-cvcs">Advantages of DVCS over CVCS</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 
     </div>
@@ -100,7 +99,6 @@ SESSION 2022-23
 </ul>
 </li>
 <li><a href="#advantages-of-dvcs-over-cvcs">Advantages of DVCS over CVCS</a></li>
-<li><a href="#references">References</a></li>
 </ol>
 <h1 id="problem-statement">Problem Statement</h1>
 <p>ABC organization would like to opt for the distributed version control system to upgrade their environment, where Git has been selected as the solution. You been assigned as a consultant to educate the migration process to move their source code from centralized to distributed systems. As phase one, you would like to go ahead with a workshop to demonstrate below operations to make the ABC team comfortable:</p>
@@ -114,62 +112,90 @@ SESSION 2022-23
 <li>Merge <code>feature-branch</code> into <code>main</code></li>
 <li>Push changes to GitHub</li>
 </ol>
-<p>And at the end provide the summary of advantages of moving from centralized source code to distributed version control.</p>
+<p>At the end, provide the summary of advantages of moving from centralized source code to distributed version control.</p>
 <h1 id="methodology">Methodology</h1>
-<p>As a one-time setup to perform the assignment effectively, an empty directory <code>assignment1</code> is created on my local machine. In addition to this, a remote repository is created on GitHub which can be found at <a href="https://github.com/harshitjindal/devops-assignment-1">https://github.com/harshitjindal/devops-assignment-1</a>.</p>
-<p>I have documented each of the steps listed under the problem statement with a list of commands executed to perform it, along with the explanation and screenshot(s).</p>
+<p>As a one-time setup to perform the assignment effectively, an empty directory <code>assignment1</code> is created on my local machine. In addition to this, a remote repository is created on GitHub which can be found at <a href="https://github.com/harshitjindal/devops-assignment-1" target="_blank">https://github.com/harshitjindal/devops-assignment-1</a></p>
+<p>I have documented each of the steps listed under the problem statement with a list of git commands as and when they are first introduced, along with the explanation and screenshot(s).</p>
 <p>** Please allow a few seconds for all screenshots / images to fully load. I have used GitHub CDN to host the images in an attempt to reduce loading time as much as possible.</p>
 <h1 id="steps">Steps</h1>
+<h2 id="create-a-repository">1. Create a repository</h2>
+<p>Git Commands:</p>
 <ul>
-<li>
-<h2 id="create-a-repository">Create a repository</h2>
-</li>
+<li><code>git init</code>: used to initialise a new git repository within a directory</li>
 </ul>
+<p>We take the local directory <code>assignment1</code> and execute <code>git init</code> on it to initialise it as a git repository. This creates a <code>.git</code> subdirectory that git uses to maintain this local repository.</p>
 <img src="https://camo.githubusercontent.com/b0e87439463ecbf8a84f2c1d1fb459192f7cfee13d97ead2e22e207260d167aa/68747470733a2f2f692e696d6775722e636f6d2f485263736937492e6a7067">
+<hr>
+<p>We then go to <a href="http://github.com">github.com</a> and create a new remote repository.</p>
 <img src="https://camo.githubusercontent.com/d83a6ada1f13d060274a1dea403dc36d67359ea5b3bad1f197517086f4e2a2d7/68747470733a2f2f692e696d6775722e636f6d2f316e73566e46552e6a7067">
+<hr>
+<p>Git Commands:</p>
+<ul>
+<li><code>git remote add &lt;remote_name&gt; &lt;remote_link&gt;</code>: Used to create a new remote</li>
+</ul>
+<p>It’s time to link our local and remote repositories. We can do this by adding a <code>remote</code> (essentially a link to our GitHub repository) for our local repository.</p>
+<p>In our case, we execute <code>git remote add origin https://github.com/harshitjindal/devops-assignment-1.git</code> on the local machine. This sets up the remote with name <code>origin</code>, and can be validated with <code>git remote -v</code>.</p>
 <img src="https://camo.githubusercontent.com/6f1343e29fab931a0d9ae5fd2821ae9ffb7a76e2bde2435cec80f79383d0e7d0/68747470733a2f2f692e696d6775722e636f6d2f34666f7766416a2e6a7067">
+<h2 id="add-two-directories-and-some-raw-code-files-to-the-repository">2. Add two directories and some raw code files to the repository</h2>
+<p>Git Commands:</p>
 <ul>
-<li>
-<h2 id="add-two-directories-and-some-raw-code-files-to-the-repository">Add two directories and some raw code files to the repository</h2>
-</li>
+<li><code>git add</code>: used to start tracking files, and to stage changes</li>
+<li><code>git commit</code>: used to commit the staged changes</li>
+<li><code>git status</code>: used to view which files are untracked, tracked, and staged for commit</li>
 </ul>
+<p>We create two directories <code>dir1</code> and <code>dir2</code>, and then add two files <code>dir1/file1.py</code> and <code>dir2/file2.py</code> with some dummy content for demonstration purpose.</p>
+<p>We then track the new files and stage the changes using <code>git add</code> and commit them with <code>git commit</code>. We can use <code>-m</code> option with <code>git commit</code> to pass the commit message in the same command.</p>
 <img src="https://camo.githubusercontent.com/1ce3445f681ba5851823e750ab79d4588e072d5822afa16702b3561b95eafede/68747470733a2f2f692e696d6775722e636f6d2f554e466c7a41642e6a7067">
-<ul>
-<li>
-<h2 id="move-code-from-one-directory-to-the-other-directory">Move code from one directory to the other directory</h2>
-</li>
-</ul>
+<h2 id="move-code-from-one-directory-to-the-other-directory">3. Move code from one directory to the other directory</h2>
+<p>We move <code>file1.py</code> from <code>dir1</code> to <code>dir2</code>.<br>
+Similarly, we move <code>file2.py</code> from <code>dir2</code> to <code>dir1</code>.</p>
+<p>This essentially mimics the process of moving code from one directory to another. Once the files are interchanged, we stage the files (already tracked) with <code>git add &lt;filename&gt;</code>, and commit with <code>git commit -m &lt;commit_message&gt;</code>.</p>
 <img src="https://camo.githubusercontent.com/e813a6d422aa1a456cd32edacdb3c26cebde77796316a9d7b7e797cc716634c2/68747470733a2f2f692e696d6775722e636f6d2f723662337148692e6a7067">
+<h2 id="update-one-source-code-file-and-display-the-difference">4. Update one source code file and display the difference</h2>
+<p>Git Commands:</p>
 <ul>
-<li>
-<h2 id="update-one-source-code-file-and-display-the-difference">Update one source code file and display the difference</h2>
-</li>
+<li><code>git diff</code>: used to display delta for files or commits</li>
 </ul>
+<p>We append a dummy line of code to <code>dir2/file1.py</code> to demonstate the way we can view the difference. To do this, we run <code>git diff &lt;filename&gt;</code> before staging, or <code>git diff --cached &lt;filename&gt;</code> after staging the changes. The lines in green prepended with a <code>+</code> symbol represent new additions, and lines in red prepended with <code>-</code> symbol represent deletions.</p>
+<p>Generally, if a line / block of code is modified, the old changes would show up as deleted, and the new changes would appear like new additions. For example, a line <code>the quick brown fox</code>, if changed to <code>the quick brown fox jumps over the lazy dog</code> would show up in a <code>diff</code> as follows:</p>
+<blockquote>
+<p><code>-the quick brown fox</code> (in red)<br>
+<code>+the quick brown fox jumps over the lazy dog</code> (in green)</p>
+</blockquote>
 <img src="https://camo.githubusercontent.com/d0689e65c23a3f0958ac2bfbd2d4d042f4320902ef9c2ff3de6e6701d8eaa84f/68747470733a2f2f692e696d6775722e636f6d2f7565346a4b44612e6a7067">
+<h2 id="create-a-branch-feature-branch">5. Create a branch (<code>feature-branch</code>)</h2>
+<p>Git Commands:</p>
 <ul>
-<li>
-<h2 id="create-a-branch-feature-branch">Create a branch (<code>feature-branch</code>)</h2>
-</li>
+<li><code>git branch</code>: used to create a new branch</li>
+<li><code>git checkout</code>: used to switch to an existing branch</li>
 </ul>
+<p>We create a new branch <code>feature-branch</code>. Normally, we first create a new branch like <code>git branch feature-branch</code> and then switch to it with <code>git checkout feature-branch</code>.</p>
+<p>However, there’s a shorter way using <code>-b</code> option for <code>git checkout</code>, like <code>git checkout -b &lt;branch_name&gt;</code> which creates a new branch and then switches to it.</p>
 <img src="https://camo.githubusercontent.com/0504cd3f632179590970e977ee16a7d763b281336f1e7185c3104d6971859504/68747470733a2f2f692e696d6775722e636f6d2f413758726f69542e6a7067">
-<ul>
-<li>
-<h2 id="add-some-raw-code-to-feature-branch">Add some raw code to <code>feature-branch</code></h2>
-</li>
-</ul>
+<h2 id="add-some-raw-code-to-feature-branch">6. Add some raw code to <code>feature-branch</code></h2>
+<p>We create a new directory <code>some_dir_for_feature</code>, and within it a new file <code>feature.py</code> with some content. As we did before, we start to track and stage this new file with <code>git add &lt;filename&gt;</code>, and then commit with <code>git commit</code>.</p>
+<p>It is worth noting that <code>.</code> can be used as a wildcard with <code>git add</code>, ie: <code>git add .</code> would track and stage all files that are either untracked, modified, or both. It is always a good practice to run <code>git status</code> before and after running <code>git add</code> to prevent accidents.</p>
 <img src="https://camo.githubusercontent.com/0504cd3f632179590970e977ee16a7d763b281336f1e7185c3104d6971859504/68747470733a2f2f692e696d6775722e636f6d2f413758726f69542e6a7067">
+<h2 id="merge-feature-branch-into-main">7. Merge <code>feature-branch</code> into <code>main</code></h2>
+<p>Git Commands:</p>
 <ul>
-<li>
-<h2 id="merge-feature-branch-into-main">Merge <code>feature-branch</code> into <code>main</code></h2>
-</li>
+<li><code>git merge</code>: used to merge branches</li>
+<li><code>git log</code>: used to view the history / a timeline of commits</li>
 </ul>
+<p>We move to the <code>main</code> branch with <code>git checkout main</code>. We then run <code>git merge feature-branch</code> to move the changes from <code>feature-branch</code> into <code>main</code> branch.</p>
+<p>What we have here is called a <code>fast-forward merge</code>, which happens when the destination branch (<code>main</code> in this case) has no commits that aren’t already present in the incoming branch (<code>feature-branch</code> in this case), and the tip of the destination branch simply moves forward to the latest incoming change. This does NOT create a merge commit, and maintains linear history.</p>
+<p>Git provides a lot of flexibility with different types of merges (<code>fast-forward</code>, <code>two-way</code>, <code>three-way</code>), and even rebase functionality which always maintains linear history at the expense of regenerating commit SHAs (changing history). Git can usually identify the type of merge required, but we can also explicitly let it know what type we prefer for any particular scenario, for example, we can let Git know that we want to merge only if a <code>fast-forward</code> is possible with the <code>--ff-only</code> option.</p>
 <img src="https://camo.githubusercontent.com/160c4f395c17120122c40e2cac164ba69fdabfafe96562d2214e7e4cd84d4394/68747470733a2f2f692e696d6775722e636f6d2f587372625566682e6a7067">
+<h2 id="push-changes-to-github">8. Push changes to GitHub</h2>
+<p>Git Commands:</p>
 <ul>
-<li>
-<h2 id="push-changes-to-github">Push changes to GitHub</h2>
-</li>
+<li><code>git push</code>: used to push local commits to a remote repository</li>
 </ul>
+<p>It’s time to push our committed changes from the local repository to the remote repository on GitHub. We can easily do this with <code>git push &lt;remote_name&gt; &lt;branch_name&gt;</code>.</p>
+<p>In most cases, however, it is convenient to only have to execute <code>git push</code> instead of explicitly mentioning <code>remote_name</code> and <code>branch_name</code>. We can easily achieve this by setting the upstream branch for any local branch with the <code>-u</code> option. For example, we can run <code>git push -u origin main</code> while we are on the <code>main</code> branch, and the next time onwards we only need to run <code>git push</code> for <code>main</code> branch.</p>
+<p>It is worth noting that upstream is automatically set for branches that are pulled to local repository from a remote repository with <code>git pull</code>.</p>
 <img src="https://camo.githubusercontent.com/c3803299fb8201c5748a33e9129d3541f356a7f51b044480c8df04fddd177666/68747470733a2f2f692e696d6775722e636f6d2f79737a484757532e6a7067">
+<hr>
 <h1 id="advantages-of-dvcs-over-cvcs">Advantages of DVCS over CVCS</h1>
 <ol>
 <li>
@@ -185,10 +211,10 @@ SESSION 2022-23
 <p>Much better branching support, where each new feature can have its own branch, which can be tested in isolation with each other and then later merged into the main branch once ready.</p>
 </li>
 <li>
-<p>More convenient because developers don’t need to fetch changes of each other before making their changes. The sync can happen in a single go later, and not necessarily constantly.</p>
+<p>More convenient because developers don’t need to fetch each other’s changes before making their changes. The sync can happen in a single go later, and not necessarily constantly.</p>
 </li>
 </ol>
-<h1 id="references">References</h1>
+<hr>
 
     </div>
   </div>
