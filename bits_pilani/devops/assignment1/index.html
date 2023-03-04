@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#steps">Steps</a>
+<ul>
+<li><a href="#create-a-repository">Create a repository</a></li>
+<li><a href="#add-two-directories-and-some-raw-code-files-to-the-repository">Add two directories and some raw code files to the repository</a></li>
+<li><a href="#move-code-from-one-directory-to-the-other-directory">Move code from one directory to the other directory</a></li>
+<li><a href="#update-one-source-code-file-and-display-the-difference">Update one source code file and display the difference</a></li>
+<li><a href="#create-a-branch-feature-branch">Create a branch (feature-branch)</a></li>
+<li><a href="#add-some-raw-code-to-feature-branch">Add some raw code to feature-branch</a></li>
+<li><a href="#merge-feature-branch-into-main">Merge feature-branch into main</a></li>
+<li><a href="#push-changes-to-github">Push changes to GitHub</a></li>
+</ul>
+</li>
+<li><a href="#advantages-of-dvcs-over-cvcs">Advantages of DVCS over CVCS</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <div align="center">
+<h1>
+Assignment 1<br><br>
+Introduction to DevOps<br>S2-22_SEZG514<br>
+</h1>
+</div>
+<br>
+<div align="center">
+SUBMITTED IN PARTIAL FULFILMENT OF THE REQUIREMENT FOR THE
+AWARD OF THE DEGREE OF <br>
+<h3>
+MASTER OF TECHNOLOGY
+<br>
+(SOFTWARE ENGINEERING)
+</h3>
+</div>
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/BITS_Pilani-Logo.svg/200px-BITS_Pilani-Logo.svg.png">
+</div>
+<br>
+<div align="center">
+Submitted To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted By:
+<br>
+Prof. Yogesh Bhatia
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Harshit Jindal
+<br>
+(Lead Instructor)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2022MT93524
+</div>
+<br>
+<div align="center"><h3>
+DEPARTMENT OF COMPUTER SCIENCE AND INFORMATION SYSTEMS<br>
+BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE, PILANI<br>
+SESSION 2022-23
+</h3> </div><br>
+<hr>
+<h1 id="declaration">Declaration</h1>
+<p>This assignment is a presentation of my original work. Wherever contributions of others are involved, every effort is made to indicate this clearly, with due reference to the literature, and acknowledgement of collaborative research and discussions.</p>
+<p>Dated: March 05, 2023</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#steps">Steps</a>
+<ul>
+<li><a href="#create-a-repository">Create a repository</a></li>
+<li><a href="#add-two-directories-and-some-raw-code-files-to-the-repository">Add two directories and some raw code files to the repository</a></li>
+<li><a href="#move-code-from-one-directory-to-the-other-directory">Move code from one directory to the other directory</a></li>
+<li><a href="#update-one-source-code-file-and-display-the-difference">Update one source code file and display the difference</a></li>
+<li><a href="#create-a-branch-feature-branch">Create a branch (<code>feature-branch</code>)</a></li>
+<li><a href="#add-some-raw-code-to-feature-branch">Add some raw code to  <code>feature-branch</code></a></li>
+<li><a href="#merge-feature-branch-into-main">Merge <code>feature-branch</code> into <code>main</code> </a></li>
+<li><a href="#push-changes-to-github">Push changes to GitHub</a></li>
+</ul>
+</li>
+<li><a href="#advantages-of-dvcs-over-cvcs">Advantages of DVCS over CVCS</a></li>
+<li><a href="#references">References</a></li>
+</ol>
+<h1 id="problem-statement">Problem Statement</h1>
+<p>ABC organization would like to opt for the distributed version control system to upgrade their environment, where Git has been selected as the solution. You been assigned as a consultant to educate the migration process to move their source code from centralized to distributed systems. As phase one, you would like to go ahead with a workshop to demonstrate below operations to make the ABC team comfortable:</p>
+<ol>
+<li>Create a repository</li>
+<li>Add two directories and some raw code files to the repository</li>
+<li>Move code from one directory to the other directory</li>
+<li>Update one source code file and display the difference</li>
+<li>Create a branch (<code>feature-branch</code>)</li>
+<li>Add some raw code to <code>feature-branch</code></li>
+<li>Merge <code>feature-branch</code> into <code>main</code></li>
+<li>Push changes to GitHub</li>
+</ol>
+<p>And at the end provide the summary of advantages of moving from centralized source code to distributed version control.</p>
+<h1 id="methodology">Methodology</h1>
+<p>As a one-time setup to perform the assignment effectively, an empty directory <code>assignment1</code> is created on my local machine. In addition to this, a remote repository is created on GitHub which can be found at <a href="https://github.com/harshitjindal/devops-assignment-1">https://github.com/harshitjindal/devops-assignment-1</a>.</p>
+<p>I have documented each of the steps listed under the problem statement with a list of commands executed to perform it, along with the explanation and screenshot(s).</p>
+<p>** Please allow a few seconds for all screenshots / images to fully load. I have used GitHub CDN to host the images in an attempt to reduce loading time as much as possible.</p>
+<h1 id="steps">Steps</h1>
+<ul>
+<li>
+<h2 id="create-a-repository">Create a repository</h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/b0e87439463ecbf8a84f2c1d1fb459192f7cfee13d97ead2e22e207260d167aa/68747470733a2f2f692e696d6775722e636f6d2f485263736937492e6a7067">
+<img src="https://camo.githubusercontent.com/d83a6ada1f13d060274a1dea403dc36d67359ea5b3bad1f197517086f4e2a2d7/68747470733a2f2f692e696d6775722e636f6d2f316e73566e46552e6a7067">
+<img src="https://camo.githubusercontent.com/6f1343e29fab931a0d9ae5fd2821ae9ffb7a76e2bde2435cec80f79383d0e7d0/68747470733a2f2f692e696d6775722e636f6d2f34666f7766416a2e6a7067">
+<ul>
+<li>
+<h2 id="add-two-directories-and-some-raw-code-files-to-the-repository">Add two directories and some raw code files to the repository</h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/1ce3445f681ba5851823e750ab79d4588e072d5822afa16702b3561b95eafede/68747470733a2f2f692e696d6775722e636f6d2f554e466c7a41642e6a7067">
+<ul>
+<li>
+<h2 id="move-code-from-one-directory-to-the-other-directory">Move code from one directory to the other directory</h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/e813a6d422aa1a456cd32edacdb3c26cebde77796316a9d7b7e797cc716634c2/68747470733a2f2f692e696d6775722e636f6d2f723662337148692e6a7067">
+<ul>
+<li>
+<h2 id="update-one-source-code-file-and-display-the-difference">Update one source code file and display the difference</h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/d0689e65c23a3f0958ac2bfbd2d4d042f4320902ef9c2ff3de6e6701d8eaa84f/68747470733a2f2f692e696d6775722e636f6d2f7565346a4b44612e6a7067">
+<ul>
+<li>
+<h2 id="create-a-branch-feature-branch">Create a branch (<code>feature-branch</code>)</h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/0504cd3f632179590970e977ee16a7d763b281336f1e7185c3104d6971859504/68747470733a2f2f692e696d6775722e636f6d2f413758726f69542e6a7067">
+<ul>
+<li>
+<h2 id="add-some-raw-code-to-feature-branch">Add some raw code to <code>feature-branch</code></h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/0504cd3f632179590970e977ee16a7d763b281336f1e7185c3104d6971859504/68747470733a2f2f692e696d6775722e636f6d2f413758726f69542e6a7067">
+<ul>
+<li>
+<h2 id="merge-feature-branch-into-main">Merge <code>feature-branch</code> into <code>main</code></h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/160c4f395c17120122c40e2cac164ba69fdabfafe96562d2214e7e4cd84d4394/68747470733a2f2f692e696d6775722e636f6d2f587372625566682e6a7067">
+<ul>
+<li>
+<h2 id="push-changes-to-github">Push changes to GitHub</h2>
+</li>
+</ul>
+<img src="https://camo.githubusercontent.com/c3803299fb8201c5748a33e9129d3541f356a7f51b044480c8df04fddd177666/68747470733a2f2f692e696d6775722e636f6d2f79737a484757532e6a7067">
+<h1 id="advantages-of-dvcs-over-cvcs">Advantages of DVCS over CVCS</h1>
+<ol>
+<li>
+<p>Because each developer has their own copy of code, they can work offline. This is in contrast to having to constantly stay connected to the server, as in the case of centralized source code.</p>
+</li>
+<li>
+<p>Faster and more efficient, because operations can be performed on local machines, and then later pushed / pulled to the version control server, when required.</p>
+</li>
+<li>
+<p>Multiple levels of redundancy, because each developer would have a copy of the code on their system, even if the main server loses its copy, it can easily be recovered.</p>
+</li>
+<li>
+<p>Much better branching support, where each new feature can have its own branch, which can be tested in isolation with each other and then later merged into the main branch once ready.</p>
+</li>
+<li>
+<p>More convenient because developers don’t need to fetch changes of each other before making their changes. The sync can happen in a single go later, and not necessarily constantly.</p>
+</li>
+</ol>
+<h1 id="references">References</h1>
+
+    </div>
+  </div>
+</body>
+
+</html>
