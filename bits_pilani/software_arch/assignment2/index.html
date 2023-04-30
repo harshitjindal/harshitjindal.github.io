@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SA Assignment 2</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#assignment-2">Assignment 2</a>
+<ul>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#activity-1">Activity 1</a></li>
+<li><a href="#activity-2">Activity 2</a></li>
+<li><a href="#activity-3">Activity 3</a></li>
+<li><a href="#activity-4">Activity 4</a></li>
+<li><a href="#activity-5">Activity 5</a></li>
+<li><a href="#activity-6">Activity 6</a></li>
+<li><a href="#activity-7">Activity 7</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <div align="center">
+<h1>
+Assignment 2<br><br>
+Software Architectures<br>Merged - SEZG651/SSZG653<br>
+</h1>
+</div>
+<br>
+<div align="center">
+SUBMITTED IN PARTIAL FULFILMENT OF THE REQUIREMENT FOR THE
+AWARD OF THE DEGREE OF <br>
+<h3>
+MASTER OF TECHNOLOGY
+<br>
+(SOFTWARE ENGINEERING)
+</h3>
+</div>
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/BITS_Pilani-Logo.svg/200px-BITS_Pilani-Logo.svg.png">
+</div>
+<br>
+<div align="center">
+Submitted To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted By:
+<br>
+Prof. HS Jabbal
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Harshit Jindal
+<br>
+(Lead Instructor)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2022MT93524
+</div>
+<br>
+<div align="center"><h3>
+DEPARTMENT OF COMPUTER SCIENCE AND INFORMATION SYSTEMS<br>
+BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE, PILANI<br>
+SESSION 2022-23
+</h3> </div><br>
+<hr>
+<h1 id="declaration">Declaration</h1>
+<p>This assignment is a presentation of my original work. Wherever contributions of others are involved, every effort is made to indicate this clearly, with due reference to the literature, and acknowledgement of collaborative research and discussions.</p>
+<p>Dated: April 30th, 2023</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#assignment-2">Assignment 2</a>
+<ul>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#activity-1">Activity 1</a></li>
+<li><a href="#activity-2">Activity 2</a></li>
+<li><a href="#activity-3">Activity 3</a></li>
+<li><a href="#activity-4">Activity 4</a></li>
+<li><a href="#activity-5">Activity 5</a></li>
+<li><a href="#activity-6">Activity 6</a></li>
+<li><a href="#activity-7">Activity 7</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="assignment-2">Assignment 2</h1>
+<h2 id="problem-statement">Problem Statement</h2>
+<p><strong>Objective:</strong> To gain experience in architecting real life applications in domains such as Retail, Transportation, Healthcare, Hospitality, etc. Example systems: Swiggy, Uber, an IoT system to monitor health of industrial air conditioners.</p>
+<p><strong>Activity</strong></p>
+<ol>
+<li>Identify top 3 Architecturally Significant Requirements (ASRs) and write them in the form of a Utility tree. Why are these architecturally significant?</li>
+<li>Describe in detail, the tactics you recommend for each ASR. For example, if caching is a tactic you recommend, please mention what you will cache, what tool you would use, how it will work, etc.</li>
+<li>Draw 2 software architecture diagrams – component &amp; connection view and deployment view – to understand how the system works.</li>
+<li>Indicate important messages between components by labelling the connections in the C&amp;C view. Also indicate the communication method used.</li>
+<li>Draw a sequence diagram for one major scenario (use case). Mention the scenario.</li>
+<li>State the architectural patterns used. Explain, where in the architecture, these patterns have been used.</li>
+<li>What did you learn by doing this assignment? Mention 3 key learnings. One slide per person.</li>
+</ol>
+<h2 id="activity-1">Activity 1</h2>
+<h3 id="identify-top-3-architecturally-significant-requirements-asrs-and-write-them-in-the-form-of-a-utility-tree.-why-are-these-architecturally-significant">Identify top 3 Architecturally Significant Requirements (ASRs) and write them in the form of a Utility tree. Why are these architecturally significant?</h3>
+<p>My application is an AI Decision Engine (<strong>AIDE</strong>) for credit card companies, that approves or declines transactions, credit card requests, credit limit increase requests, etc.</p>
+<p>Description of how the system works</p>
+<ul>
+<li>AI Decision Engine (AIDE) acts as the universal point of contact for all AI-model related decisioning. It exposes several APIs for internal as well as external use.</li>
+<li>It works by identifying the type of request, and appropriately calls the relevant machine learning model on those input parameters to generate model scores, which are then consumed back by AIDE to make the final decision.</li>
+<li>Internal use cases involve an application team performing some analysis and wanting to run a model for their inputs, and analyzing the outputs.</li>
+<li>External use cases involve a commercial merchant hitting the API to authorize a customer transaction, eg: a customer swipes card at a petrol station, the card machine (POS terminal) from the petrol station will hit the AIDE API to validate the transaction.</li>
+</ul>
+<p>The top three ASRs are:</p>
+<ol>
+<li>Security</li>
+<li>Performance</li>
+<li>Availability</li>
+</ol>
+<img src="https://i.imgur.com/Uiv2u7i.png)">
+<h2 id="activity-2">Activity 2</h2>
+<h3 id="describe-in-detail-the-tactics-you-recommend-for-each-asr.-for-example-if-caching-is-a-tactic-you-recommend-please-mention-what-you-will-cache-what-tool-you-would-use-how-it-will-work-etc.">Describe in detail, the tactics you recommend for each ASR. For example, if caching is a tactic you recommend, please mention what you will cache, what tool you would use, how it will work, etc.</h3>
+<p>The tactics I would use for each ASR are:</p>
+<ul>
+<li>Security
+<ul>
+<li>Machine Learning – We use machine learning to detect fraud and unauthorized use of our systems</li>
+<li>Firewall – We use a “block all unless whitelisted” approach on our firewall that ensures that all connections are setup for a reason, and all internal systems are isolated from public facing internet by default.</li>
+<li>Resist and react to attacks to maintain system integrity, like access revocation for identified actors</li>
+</ul>
+</li>
+<li>Performance
+<ul>
+<li>Load balancing – There are dedicated load balancers that ensure no one system is overwhelmed</li>
+<li>Containerization – We use a containerized architecture, orchestrated by Kubernetes which allows us to dynamically scale up individual services whenever needed</li>
+<li>Demand forecasting – We use AI models that can help us forecast demand ahead of time based on historical data, which allows the systems to seamlessly scale, as required.</li>
+</ul>
+</li>
+<li>Availability
+<ul>
+<li>Redundancy – There are multiple redundant systems so a fault in one system will not bring down the entire network</li>
+<li>Cloud – We use an in-house cloud that allows us to easily manage our application deployments in different regions, ensuring customers don’t face downtime</li>
+<li>Fault detection and recovery – Systems are able to detect faults and recover from them by restoring to last known stable configuration</li>
+</ul>
+</li>
+</ul>
+<h2 id="activity-3">Activity 3</h2>
+<h3 id="draw-2-software-architecture-diagrams-–-component--connection-view-and-deployment-view-–-to-understand-how-the-system-works.">Draw 2 software architecture diagrams – component &amp; connection view and deployment view – to understand how the system works.</h3>
+<p>Below is the deployment view diagram:</p>
+<img src="https://i.imgur.com/onNqQ7B.png)">
+<p>The following context diagram should further help understand the different possibilities:</p>
+<img src="https://i.imgur.com/ckArjQG.png)">
+<h2 id="activity-4">Activity 4</h2>
+<h3 id="indicate-important-messages-between-components-by-labelling-the-connections-in-the-cc-view.-also-indicate-the-communication-method-used.">Indicate important messages between components by labelling the connections in the C&amp;C view. Also indicate the communication method used.</h3>
+<p>Throught the process, most communication happens via the following methods:</p>
+<ol>
+<li>Procedure Calls –  The front-end user interface component could make procedure calls to the AIDE server component to submit credit card applications and retrieve decisions. The AIDE server component also makes procedure calls to the AI model component to process application data and return decisions. These procedure calls are also used for the microservices to interact with each other, as and when required.</li>
+<li>Shared Data –  The AIDE server component and the AI model components access and modify a shared database to store and retrieve applicant data and decisions. Even some other systems such as the enterprise model management and approval systems share access to the database to review decisions and make adjustments as necessary.</li>
+<li>Event Broadcasting –  The AIDE server component broadcasts information to other components when certain events happen, for example, when a credit card application is submitted or when a decision is made. The other components like the fraud detection system, could listen for these events and take action when they occur.</li>
+</ol>
+<h2 id="activity-5">Activity 5</h2>
+<h3 id="draw-a-sequence-diagram-for-one-major-scenario-use-case.-mention-the-scenario.">Draw a sequence diagram for one major scenario (use case). Mention the scenario.</h3>
+<p>Following is the sequence diagram for a new credit card decisioning process:</p>
+<img src="https://i.imgur.com/vMXunuN.png)">
+<p>The scenario here is explain below:</p>
+<ol>
+<li>User opens the application form on their browser and enters the details such as which credit card they are interested in, their credit bureau identifier (ITIN, similar to PAN number in India which is used to pull CIBIL reports from Transunion Credit Bureau), their age, and other documention.</li>
+<li>This request reaches AIDE server which decides which AI model to use depending on the request type. Given this is a new credit card application request from a client in the US, it choses the appropriate model designated for these scenarios.</li>
+<li>The AI model receives the request from AIDE server along with all the input parameters it has received from the user. This particular model also needs the FICO score, and it determines that it needs to be requested from the credit bureau, so it requests a FICO score based on the ITIN number.</li>
+<li>Credit bureau returns the FICO score for the given ITIN number.</li>
+<li>The model is now executed on the input parameters including the FICO score and a decision is generated</li>
+<li>The decision is returned to the user’s browser for their information.</li>
+</ol>
+<h2 id="activity-6">Activity 6</h2>
+<h3 id="state-the-architectural-patterns-used.-explain-where-in-the-architecture-these-patterns-have-been-used.">State the architectural patterns used. Explain, where in the architecture, these patterns have been used.</h3>
+<p>The following architectural patterns have been used in AIDE:</p>
+<ul>
+<li>Microservices Pattern – This pattern is used to break down the application into small, independent services that communicate with each other through RPCs (Remote procedure call). For example, one service is responsible for collecting data from credit card applicants, second service is responsible for take live income transaction data and making a decision, and a third service is responsible for communicating the decision to the applicant. This allows for greater flexibility and scalability as each service could be developed and deployed independently. This is especially useful because not all services face the same load at all times, for example, the service for aggregating data runs jobs in batch mode, while the second and third services handle real-time traffic. In addition, each single type of AI model used acts as an independent service, because the load varies on each type of model throughout the day. For example, the fraud detection model is used at all times, for all transactions and all login attempts, but the credit limit decisioning model only runs when a limit decision is required, either at time of new application, or later.</li>
+<li>Event-Driven Pattern – This pattern is used in AIDE to instantly start services in response to events. The process of gathering data and analysing it begins when a credit card application is made. Once a choice has been made, another event is set off that notifies the prospective customer of the choice. This allows the decisioning of credit card applications to happen more quickly.</li>
+<li>Layered Pattern – We use this to separate responsibilites between the different layers of AIDE. For example, one layer is responsible for collecting data from credit card applicants, another layer is responsible for analyzing the data and making a decision, and a third layer is responsible for communicating the decision to the applicant. This allows for greater modularity and maintainability as each layer is developed and maintained independently by us.</li>
+<li>Client-server Pattern – This is used to separate the front-end user interface from the back-end processing and decision-making. The backend server is what invokes different services, that may even be running on separate hardware. We use an Apache WSGI webserver for the backend, and an Angular application for the frontend for this particular application.</li>
+</ul>
+<h2 id="activity-7">Activity 7</h2>
+<h3 id="what-did-you-learn-by-doing-this-assignment-mention-key-learnings.-one-slide-per-person.">What did you learn by doing this assignment? Mention key learnings. One slide per person.</h3>
+<p>This assignment was a great opportunity for me to learn more about understanding the software architecture used in an application that I work closely with at my organization. A few of the key learnings are:</p>
+<ul>
+<li>
+<p>How to identify and write ASRs</p>
+</li>
+<li>
+<p>Got better understanding of different architectural patterns</p>
+</li>
+<li>
+<p>How to draw software architecture diagrams to communicate ideas with others, and for documentation</p>
+</li>
+<li>
+<p>Effective collaboration and free communication between team members,<br>
+stakeholders, and customers is vital</p>
+</li>
+<li>
+<p>Project management skills, including the ability to manage risks,<br>
+track progress, and adjust plans as needed are very important</p>
+</li>
+<li>
+<p>Testing and quality assurance is undeniably at the heart of any<br>
+business-critical software</p>
+</li>
+</ul>
+
+    </div>
+  </div>
+</body>
+
+</html>
