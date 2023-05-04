@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Assignment 2</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li></li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#suggestion-1">Suggestion 1</a>
+<ul>
+<li>
+<ul>
+<li></li>
+<li><a href="#what-are-nightly-builds">What are Nightly Builds?</a></li>
+<li><a href="#what-is-cicd">What is CI/CD?</a></li>
+<li><a href="#how-cicd-can-help-here">How CI/CD can help here</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#suggestion-2">Suggestion 2</a>
+<ul>
+<li>
+<ul>
+<li></li>
+<li><a href="#effective-communication">Effective communication</a></li>
+<li><a href="#tools-and-techniques-for-communication">Tools and techniques for communication</a></li>
+<li><a href="#finding-common-working-hours">Finding common working hours</a>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <div align="center">
+<h1>
+Assignment 2<br><br>
+Introduction to DevOps<br>S2-22_SEZG514<br>
+</h1>
+</div>
+<br>
+<div align="center">
+SUBMITTED IN PARTIAL FULFILMENT OF THE REQUIREMENT FOR THE
+AWARD OF THE DEGREE OF <br>
+<h3>
+MASTER OF TECHNOLOGY
+<br>
+(SOFTWARE ENGINEERING)
+</h3>
+</div>
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/BITS_Pilani-Logo.svg/200px-BITS_Pilani-Logo.svg.png">
+</div>
+<br>
+<div align="center">
+Submitted To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted By:
+<br>
+Prof. Yogesh Bhatia
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Harshit Jindal
+<br>
+(Lead Instructor)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2022MT93524
+</div>
+<br>
+<div align="center"><h3>
+DEPARTMENT OF COMPUTER SCIENCE AND INFORMATION SYSTEMS<br>
+BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE, PILANI<br>
+SESSION 2022-23
+</h3> </div><br>
+<hr>
+<h1 id="declaration">Declaration</h1>
+<p>This assignment is a presentation of my original work. Wherever contributions of others are involved, every effort is made to indicate this clearly, with due reference to the literature, and acknowledgement of collaborative research and discussions.</p>
+<p>Dated: May 2nd, 2023</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#suggestion-1">Suggestion 1</a>
+<ul>
+<li><a href="#what-are-nightly-builds">What are Nightly Builds?</a></li>
+<li><a href="#what-is-cicd">What is CI/CD?</a></li>
+<li><a href="#how-cicd-can-help-here">How CI/CD can help here</a></li>
+</ul>
+</li>
+<li><a href="#suggestion-2">Suggestion 2</a>
+<ul>
+<li><a href="#effective-communication">Effective communication</a></li>
+<li><a href="#tools-and-techniques-for-communication">Tools and techniques for communication</a></li>
+<li><a href="#finding-common-working-hours">Finding common working hours</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<h1 id="problem-statement">Problem Statement</h1>
+<p>A brand Product Development Company (<abbr title="Brand: Product Development Company">PDC</abbr>) is failing to deliver their new product features to their customer. If this continues the company is expected to lose their customer base by 20% by 2021. Here are the challenges of company:</p>
+<ol>
+<li>They still follow Nightly Build</li>
+<li>Has Development Team spanned across Netherlands, America &amp; India</li>
+</ol>
+<p>Suggest the solution’s they can bring in to overcome the challenges and overcome the delivery backlog.</p>
+<h1 id="suggestion-1">Suggestion 1</h1>
+<blockquote>
+<h3> ''They still follow Nightly Build'' </h3>
+</blockquote>
+<p>This is a big problem for a company that is already failing to deliver new features and bug-fixes to their customers. To further understand what the issue is and how to solve for it, we first discuss what Nightly Builds are, what CI/CD is, and how it can help.</p>
+<h3 id="what-are-nightly-builds">What are Nightly Builds?</h3>
+<p>A <em>nightly build</em> is essentially a scheduled daily build that happens automatically, not necessarily at the night but at any time when the team is expected to be away, for example, at night or lunch-time. This also includes automated testing of the build, to ensure we catch regressions and other newly introduced bugs.</p>
+<p>While this has several advantages such as getting alerted for errors using automated tests, not shipping buggy code, dedicating builds to a time when the team is away which avoids having them to wait for the build and tests to complete, it also has disadvantages such as reducing the number of builds per day, and hence, bottlenecks the <code>develop-build-test</code> loop. If developers are made aware of bugs and issues in the build more frequently, instead of once a day, they can work more efficiently and get them fixed faster.</p>
+<h3 id="what-is-cicd">What is CI/CD?</h3>
+<p>CI/CD stands for Continuous Integration/Continuous Delivery, which is a set of practices that helps teams ship code faster and more reliably. This has a couple of steps, the first one being Continuous Integration, which is to merge changes into the main branch as frequently as possible. Every time changes are merged, they are validated by running a build and automated tests, ensuring that bug-free changes are ready to be made live as soon as possible and consequently also eliminating changes of running into integration challenges that can happen while waiting for a release day. <sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>. The next step after Continuous Integration is Continuous Delivery, which means to push software to production more freqently, multiple times a day through an automated release and deployment process.</p>
+<h3 id="how-cicd-can-help-here">How CI/CD can help here</h3>
+<p>It is clear that CI/CD eliminates the bottleneck in the <code>develop-build-test</code> loop, allowing developers to work more efficiently, deliver features and get rid of bugs faster. Eventually, adopting the CI/CD process over Nightly Builds would enable <abbr title="Brand: Product Development Company">PDC</abbr> to have more frequent deliveries for features and bug-fixes, and thereby improving customer experience.</p>
+<h1 id="suggestion-2">Suggestion 2</h1>
+<blockquote>
+<h3> ''Has Development Team spanned across Netherlands, America &amp; India'' </h3>
+</blockquote>
+<p>It is not hard to imagine teams spread out geographically like this might have issues with effective coordination and colaboration. This can further aggravate the issue of already failing to delivery new features.</p>
+<h3 id="effective-communication">Effective communication</h3>
+<p>The solution to this would be to work on ways of improving collaboration between the team members dispersed in Netherlands, America, and India. This would result in increased efficiency and throughput, directly solving for the challenge by enabling the team to ship faster and reliable code.</p>
+<h3 id="tools-and-techniques-for-communication">Tools and techniques for communication</h3>
+<p>To achieve this, we have a wide variety of tools and techniques available in the market today, both open source and proprietary, with some examples listed below:</p>
+<ul>
+<li>Slack  – A popular platform offering instant messaging, file transfers, and powerful message search.</li>
+<li>Asana  – A well-known project management tool that allows users to assign tasks to other members, add followers to projects, and monitor deadlines.<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></li>
+<li>Microsoft Teams – A collaboration platform that integrates with Office 365 to offer chat, video conferencing, file storage, and application integration.</li>
+<li>Cisco WebEx – A video conferencing tool with high-quality audio and video, screen sharing, and virtual meeting rooms.</li>
+</ul>
+<h3 id="finding-common-working-hours">Finding common working hours</h3>
+<p>In addition to the tools, the working hours of members can be adjusted in a way that allows at least 2 hours of common slot, at least 2-3 days in a week. Team could adjust their working hours to accommodate a common time slot. For example, the team in New York could start their workday earlier, while the team in India could work later in the evening. This would allow for more overlap between the working hours of the developers from three different regions. Let’s take the example of how team members based in New York in America, Netherlands, and India can adjust their schedules to achieve this.</p>
+<p>New York is in the Eastern Time Zone (UTC-5), the Netherlands falls under the Central European Time Zone (UTC+1), and India under the Indian Standard Time Zone (UTC+5:30). This means that when it is 9:00 AM in New York, it is 3:00 PM in the Netherlands, and 7:30 PM in India. This is a great time for all three regions because these are not odd hours and can be used for teams to communicate verbally over tools such as Webex or Slack, instead of just on email.</p>
+<p>One way to ensure that teams in these locations have at least 2 hours of common working time at least 2 days a week would be to schedule meetings or collaboration sessions during the late morning in New York, early afternoon in the Netherlands, and late evening in India. For example, a meeting could be scheduled from <ins>09:00 AM - 11:00 AM EST</ins>, which would be <ins>3:00 PM - 5:00 PM Central European Time</ins> and <ins>7:30 PM - 9:30 PM Indian Standard Time</ins>.</p>
+<p>This is not to be mistaken with extending working hours, which are expected to stay the same 8 hours in a day. The idea is for different teams to start early or later in the day to increase overlap. This practice is also successfully followed in my organization where members from India (IST) teams follow <ins>1:30 PM - 9:30 PM IST (UTC+5:30)</ins>, and the members in Phoenix, Arizona (MST) follow <ins>7 AM - 3 PM MST (UTC-7:00)</ins> shifts, which allows for a common overlap from <ins>7:30 PM - 9:30 PM IST</ins> or <ins>7 AM - 9 AM MST</ins>.</p>
+<hr>
+<h5 id="div-aligncenterend-of-assignmentdiv"><div align="center">END OF ASSIGNMENT</div></h5>
+<h1 id="references">References</h1>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Sten Pittet, "Continuous integration vs. delivery vs. deployment", Atlassian, https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Julia Martins, "4 must-have communication tools to unlock collaboration", Asana, https://asana.com/resources/team-communication-tools <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+  </div>
+</body>
+
+</html>
