@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Computing Assignment 1</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#steps">Steps</a>
+<ul>
+<li><a href="#create-an-account">Create an account</a></li>
+<li><a href="#create-two-s3-buckets">Create two S3 buckets</a></li>
+<li><a href="#create-an-iam-role">Create an IAM role</a></li>
+<li><a href="#configure-ses">Configure SES</a></li>
+<li><a href="#set-up-a-lambda-function">Set up a Lambda function</a></li>
+</ul>
+</li>
+<li><a href="#test-the-setup">Test the setup</a>
+<ul>
+<li><a href="#upload-a-regular-object">Upload a regular object</a></li>
+<li><a href="#upload-an-image-object">Upload an image object</a>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <div align="center">
+<h1>
+Assignment 1 - AWS<br><br>
+Cloud Computing<br>S2-22_SEZG527<br>
+</h1>
+</div>
+<br>
+<div align="center">
+SUBMITTED IN PARTIAL FULFILMENT OF THE REQUIREMENT FOR THE
+AWARD OF THE DEGREE OF <br>
+<h3>
+MASTER OF TECHNOLOGY
+<br>
+(SOFTWARE ENGINEERING)
+</h3>
+</div>
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/BITS_Pilani-Logo.svg/200px-BITS_Pilani-Logo.svg.png">
+</div>
+<br>
+<div align="center">
+Submitted To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted By:
+<br>
+Arun Vadekkedhil
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Harshit Jindal
+<br>
+(Lead Instructor)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2022MT93524
+</div>
+<br>
+<div align="center"><h3>
+DEPARTMENT OF COMPUTER SCIENCE AND INFORMATION SYSTEMS<br>
+BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE, PILANI<br>
+SESSION 2022-23
+</h3> </div><br>
+<hr>
+<h1 id="declaration">Declaration</h1>
+<p>This assignment is a presentation of my original work. Wherever contributions of others are involved, every effort is made to indicate this clearly, with due reference to the literature, and acknowledgement of collaborative research and discussions.</p>
+<p>Dated: May 07, 2023</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#steps">Steps</a>
+<ul>
+<li><a href="#create-an-account">Create an account</a></li>
+<li><a href="#create-two-s3-buckets">Create two S3 buckets</a></li>
+<li><a href="#create-an-iam-role">Create an IAM role</a></li>
+<li><a href="#configure-ses">Configure SES</a></li>
+<li><a href="#set-up-a-lambda-function">Set up a Lambda function</a>
+<ul>
+<li><a href="#create-the-function">Create the function</a></li>
+<li><a href="#set-up-a-trigger">Set up a trigger</a></li>
+<li><a href="#write-the-code">Write the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#test-the-setup">Test the setup</a>
+<ul>
+<li><a href="#upload-a-regular-object">Upload a regular object</a></li>
+<li><a href="#upload-an-image-object">Upload an image object</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ol>
+<h1 id="problem-statement">Problem Statement</h1>
+<p>Using AWS lambda, write a program to monitor an S3 Uri. Whenever a user uploads data into the S3 storage, the program should capture the details. At the end of the day the program must send out an email to select users displaying the following information</p>
+<ol>
+<li>S3 Uri</li>
+<li>Object Name</li>
+<li>Object Size</li>
+<li>Object type</li>
+</ol>
+<p>In addition to the above, the program should create a thumbnail and store it in a different uri in case the user uploads an image (.jpg/jpeg/png)</p>
+<h1 id="methodology">Methodology</h1>
+<p>As a one-time setup to perform the assignment effectively, an Amazon AWS root user account with email <code>aws@harshitjindal.com</code> has been created. The assignment objective has been broken down into individual steps, as described in the table of contents. All supporting material such as screenshots and code snippets are included within this file itself instead of as external attachments.</p>
+<p>** If using the web version of this page, please allow a few seconds for all screenshots / images to fully load. GitHub CDN has been used to host the images in an attempt to reduce loading time as much as possible.</p>
+<h1 id="steps">Steps</h1>
+<h2 id="create-an-account">Create an account</h2>
+<p>In order to sign up for an account, go to <a href="https://console.aws.amazon.com">https://console.aws.amazon.com</a> and click “Create a new AWS account”. Provide the required information such as the email address, account name and payment information. Once the account is created, we should be able to log in to the console and proceed with the next steps.</p>
+<img src="https://camo.githubusercontent.com/a73ec8e47dbc768f45ae2a77ab55cf996bbf1a2d3f3af3030da0e3faa473172d/68747470733a2f2f696d6775722e636f6d2f4165566a7976412e706e67">
+<h2 id="create-two-s3-buckets">Create two S3 buckets</h2>
+<blockquote>
+<p>An  <strong>S3 bucket</strong>  is a container for objects stored in Amazon. An object is a file and any metadata that describes that file. To store an object in Amazon S3, you create a bucket and then upload the object to a bucket. You can store any number of objects in a bucket and can have up to 100 buckets in your account. <sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
+</blockquote>
+<p>To create a new bucket, navigate to “S3” under AWS services, and click on “Create bucket”.</p>
+<img src="https://camo.githubusercontent.com/26f1cedd7fea834a69053771cba19b7977a2ca0733453c0b6fc76f5cede81543/68747470733a2f2f696d6775722e636f6d2f553251473056302e706e67">
+<hr>
+<p>For the purpose of this assignment, two buckets have been created in the Asia Pacific - Mumbai region (<code>ap-south-1</code>):</p>
+<ul>
+<li><code>cc-ns-2022mt93524--cloud-computing-assignment1</code>: The S3 bucket to be monitored</li>
+<li><code>cc-ns-2022mt93524--cloud-computing-assignment1-thumbnails</code>: The S3 bucket to store thumbnails in case an image is uploaded to the monitored bucket</li>
+</ul>
+<img src="https://camo.githubusercontent.com/2f891cbeea52bebe55807d66551eb2aea3558275f853525a5d1833fbdd41a5dc/68747470733a2f2f696d6775722e636f6d2f47484f527874522e706e67">
+<hr>
+<p>In order to upload a new file to the monitored bucket, the “Upload” button can be used which is visible once a bucket is opened by clicking on the bucket name.</p>
+<img src="https://camo.githubusercontent.com/42edbcc69cb2d0662caa0d820e121cf0d7e6ffd8746769301dfc1b01262700d2/68747470733a2f2f696d6775722e636f6d2f687663544d66662e706e67">
+<h2 id="create-an-iam-role">Create an IAM role</h2>
+<blockquote>
+<p><strong>AWS Identity and Access Management (IAM)</strong>  is a web service that helps you securely control access to AWS resources. With IAM, you can centrally manage permissions that control which AWS resources users can access. You use IAM to control who is authenticated (signed in) and authorized (has permissions) to use resources. <sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></p>
+</blockquote>
+<p>A correctly configured IAM role will enable the lambda function we will create later to access our S3 buckets, as well as Amazon Simple Email Service to send emails. To create a new role, look for “IAM” under AWS services, and click on “Roles”.</p>
+<p>Proceed with “Create new role”, and select the following configuration:</p>
+<ul>
+<li>Trusted Entity Type: AWS Service</li>
+<li>Use case: Lambda</li>
+<li>Permisions policies: <code>AmazonS3FullAccess</code> and <code>AmazonSESFullAccess</code></li>
+</ul>
+<p>For the purpose of this assignment, a role <code>cc-ns-2022mt93524--cloud-computing-assignment1-lambda-s3-role</code> has been created with the aforementioned permissions policies.</p>
+<img src="https://camo.githubusercontent.com/ef295af07c5cccf693f15a19533d99c153829bcc5a142e999ab699f20e82b3be/68747470733a2f2f696d6775722e636f6d2f6f6262707746722e706e67">
+<h2 id="configure-ses">Configure SES</h2>
+<blockquote>
+<p><strong>Amazon Simple Email Service (SES)</strong>  is a cloud email service provider that can integrate into any application for bulk email sending. You can use Amazon SES to send marketing emails such as special offers, transactional emails such as order confirmations, and other types of correspondence such as newsletters. With Amazon SES, you pay based on the volume of emails sent and received. <sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>.</p>
+</blockquote>
+<p>To configure SES, navigate to Amazon Simple Email Services under AWS Services, and click on “Create Identity”. I have chosen “Email Address” under “Identity Type”, and proceeded to verify <a href="mailto:aws@harshitjindal.com">aws@harshitjindal.com</a> on my personal domain <a href="https://harshitjindal.com">https://harshitjindal.com</a>.</p>
+<img src="https://camo.githubusercontent.com/a17b9267b0b2600d3b6ea29ef86125212b1cbbfce8f62e971355cd231b7dca96/68747470733a2f2f696d6775722e636f6d2f6d6c67784977732e706e67">
+<p>This would let the Lambda function to send/receive emails using <a href="mailto:aws@harshitjindal.com">aws@harshitjindal.com</a>.</p>
+<h2 id="set-up-a-lambda-function">Set up a Lambda function</h2>
+<blockquote>
+<p><strong>AWS Lambda</strong>  is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. You can trigger Lambda from over 200 AWS services and software as a service (SaaS) applications, and only pay for what you use. <sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup></p>
+</blockquote>
+<h3 id="create-the-function">Create the function</h3>
+<p>Similar to how we created S3 buckets, and an IAM role, to create a lambda function, head to “Lambda” under AWS services and click on “Create function”. Proceed to provide a name, runtime evironment language,  architecture, and the existing IAM role name that was created in the previous step.</p>
+<img src="https://camo.githubusercontent.com/964a5ad148ccd0635c1a7cfcee49c07731891188de72beef76bab2ba127360ee/68747470733a2f2f696d6775722e636f6d2f4833455a434f302e706e67">
+<h3 id="set-up-a-trigger">Set up a trigger</h3>
+<p>For this assignment, <code>cc-ns-2022mt93524--cloud-computing-assignment1-lambda-function</code> has been created with Python 3.9 runtime and x86_64 architecture. To continue setting it up, click on the function name so we land on the screen that lets us configure the function and write the code for it.</p>
+<p>The goal of this lambda function is to execute the provided code when it is triggered by the monitored S3 bucket. To do this, the first step is to add a trigger to the lambda function, which can be done by clicking “Add trigger” button, and proceed to provide the service as “S3”, and the bucket name that needs to be monitored.</p>
+<img src="https://camo.githubusercontent.com/7f319152256659a14d7034ec3596015d621af3300a8a0fd660da0f6f28667549/68747470733a2f2f696d6775722e636f6d2f384d466470596e2e706e67">
+<p>Once the trigger has been set, the S3 bucket is now being “monitored”, ie: any upload to it will trigger this lambda function. All that is remaining now is the code that will drive the functionality, including identifying the type of upload, creating a thumbnail and storing it in the thumbnails bucket if the object is an image, and then triggering an email with the required information such as Object Uri, name, size and type.</p>
+<img src="https://camo.githubusercontent.com/1490624de68b7dc3c97a95c569a1c7d3c5c751c42bbf20fb4ef6b6e7f1757617/68747470733a2f2f696d6775722e636f6d2f7730544b56734f2e706e67">
+<h3 id="write-the-code">Write the code</h3>
+<pre class=" language-python"><code class="prism  language-python"><span class="token comment"># imports</span>
+
+<span class="token keyword">import</span> os<span class="token punctuation">,</span> json
+<span class="token keyword">import</span> boto3
+<span class="token keyword">import</span> mimetypes
+<span class="token keyword">from</span> email<span class="token punctuation">.</span>mime<span class="token punctuation">.</span>text <span class="token keyword">import</span> MIMEText
+<span class="token keyword">from</span> email<span class="token punctuation">.</span>mime<span class="token punctuation">.</span>multipart <span class="token keyword">import</span> MIMEMultipart
+<span class="token keyword">from</span> email<span class="token punctuation">.</span>mime<span class="token punctuation">.</span>image <span class="token keyword">import</span> MIMEImage
+
+<span class="token comment"># setting up `s3_client` and `ses_client`</span>
+s3_client <span class="token operator">=</span> boto3<span class="token punctuation">.</span>client<span class="token punctuation">(</span><span class="token string">'s3'</span><span class="token punctuation">)</span>
+ses_client <span class="token operator">=</span> boto3<span class="token punctuation">.</span>client<span class="token punctuation">(</span><span class="token string">'ses'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">lambda_handler</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    
+    <span class="token comment"># create `message` object</span>
+    message <span class="token operator">=</span> MIMEMultipart<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    message<span class="token punctuation">[</span><span class="token string">'From'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'aws@harshitjindal.com'</span>
+    message<span class="token punctuation">[</span><span class="token string">'To'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'aws@harshitjindal.com'</span>
+    
+    <span class="token comment"># iterate over all records in the `event` object</span>
+    <span class="token keyword">for</span> record <span class="token keyword">in</span> event<span class="token punctuation">[</span><span class="token string">'Records'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        bucket_name <span class="token operator">=</span> record<span class="token punctuation">[</span><span class="token string">'s3'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'bucket'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span>
+        thumbnail_bucket_name <span class="token operator">=</span> <span class="token string">"cc-ns-2022mt93524--cloud-computing-assignment1-thumbnails"</span>
+        object_key <span class="token operator">=</span> record<span class="token punctuation">[</span><span class="token string">'s3'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'object'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'key'</span><span class="token punctuation">]</span>
+        object_size <span class="token operator">=</span> record<span class="token punctuation">[</span><span class="token string">'s3'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'object'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'size'</span><span class="token punctuation">]</span>
+        
+        response <span class="token operator">=</span> s3_client<span class="token punctuation">.</span>head_object<span class="token punctuation">(</span>Bucket<span class="token operator">=</span>bucket_name<span class="token punctuation">,</span> Key<span class="token operator">=</span>object_key<span class="token punctuation">)</span>
+        object_type <span class="token operator">=</span> response<span class="token punctuation">[</span><span class="token string">'ContentType'</span><span class="token punctuation">]</span>
+        
+        <span class="token comment"># Check if object is an image, and if it is, create a thumbnail and store it in </span>
+        <span class="token comment"># `thumbnail_bucket_name` (cc-ns-2022mt93524--cloud-computing-assignment1-thumbnails)</span>
+        <span class="token keyword">if</span> object_key<span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>endswith<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'.jpg'</span><span class="token punctuation">,</span> <span class="token string">'.jpeg'</span><span class="token punctuation">,</span> <span class="token string">'.png'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            
+            <span class="token comment"># Create thumbnail</span>
+            s3_object <span class="token operator">=</span> s3_client<span class="token punctuation">.</span>get_object<span class="token punctuation">(</span>Bucket<span class="token operator">=</span>bucket_name<span class="token punctuation">,</span> Key<span class="token operator">=</span>object_key<span class="token punctuation">)</span>
+            image_content <span class="token operator">=</span> s3_object<span class="token punctuation">[</span><span class="token string">'Body'</span><span class="token punctuation">]</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            
+            image_type <span class="token operator">=</span> mimetypes<span class="token punctuation">.</span>guess_type<span class="token punctuation">(</span>object_key<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            <span class="token keyword">if</span> <span class="token operator">not</span> image_type<span class="token punctuation">:</span>
+                image_type <span class="token operator">=</span> <span class="token string">'application/octet-stream'</span>
+            image <span class="token operator">=</span> MIMEImage<span class="token punctuation">(</span>image_content<span class="token punctuation">,</span> _subtype<span class="token operator">=</span>image_type<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token comment"># message.attach(image)</span>
+            
+            <span class="token comment"># Upload thumbnail to S3</span>
+            thumbnail_key <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>splitext<span class="token punctuation">(</span>object_key<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">'_thumbnail.jpg'</span>
+            s3_client<span class="token punctuation">.</span>put_object<span class="token punctuation">(</span>Body<span class="token operator">=</span>image_content<span class="token punctuation">,</span> \
+                                Bucket<span class="token operator">=</span>thumbnail_bucket_name<span class="token punctuation">,</span> \
+                                Key<span class="token operator">=</span>thumbnail_key<span class="token punctuation">)</span>
+                                
+            message<span class="token punctuation">[</span><span class="token string">'Subject'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'S3 Image Object Uploaded'</span>
+            message_body <span class="token operator">=</span> f<span class="token string">"S3 Uri: s3://{bucket_name}/{object_key}\nObject Name: {object_key}\nObject Size: {object_size}\nObject Type: {object_type}\n\nImage thumbnail with name \'{thumbnail_key}\' has been pushed to bucket \'{thumbnail_bucket_name}\'"</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            message<span class="token punctuation">[</span><span class="token string">'Subject'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'S3 Regular Object Uploaded'</span>
+            message_body <span class="token operator">=</span> f<span class="token string">"S3 Uri: s3://{bucket_name}/{object_key}\nObject Name: {object_key}\nObject Size: {object_size}\nObject Type: {object_type}"</span>
+
+        <span class="token comment"># Send email</span>
+        
+                        
+        message<span class="token punctuation">.</span>attach<span class="token punctuation">(</span>MIMEText<span class="token punctuation">(</span>message_body<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        email_response <span class="token operator">=</span> ses_client<span class="token punctuation">.</span>send_raw_email<span class="token punctuation">(</span>
+            Source<span class="token operator">=</span>message<span class="token punctuation">[</span><span class="token string">'From'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            Destinations<span class="token operator">=</span><span class="token punctuation">[</span>message<span class="token punctuation">[</span><span class="token string">'To'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            RawMessage<span class="token operator">=</span><span class="token punctuation">{</span>
+                <span class="token string">'Data'</span><span class="token punctuation">:</span> message<span class="token punctuation">.</span>as_string<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span>
+        
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+            <span class="token string">'statusCode'</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+            <span class="token string">'body'</span><span class="token punctuation">:</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>f<span class="token string">"Email response status: {email_response}"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+</code></pre>
+<h1 id="test-the-setup">Test the setup</h1>
+<h2 id="upload-a-regular-object">Upload a regular object</h2>
+<p>A file <code>dummy_file.docx</code> was uploaded to the monitored S3 bucket <code>cc-ns-2022mt93524--cloud-computing-assignment1</code>, and an email was received at <a href="mailto:aws@harshitjindal.com">aws@harshitjindal.com</a> with the required details.</p>
+<img src="https://camo.githubusercontent.com/1b3c0d8e5740db8ce1249c81fac57a12058c625d7dee974cf39e87bade72c847/68747470733a2f2f696d6775722e636f6d2f455045375145592e706e67">
+<h2 id="upload-an-image-object">Upload an image object</h2>
+<p>A dummy image file <code>dummy_image.png</code> was uploaded to the monitored S3 bucket, it was recognized by the Lambda function to be an image, so a thumbnail was created in the <code>cc-ns-2022mt93524--cloud-computing-assignment1-thumbnails</code> bucket, and an email was received with the required details, including the thumbnail name and the bucket name.</p>
+<h4 id="thumbnail-bucket">Thumbnail bucket</h4>
+<img src="https://camo.githubusercontent.com/c028819b8ea52011297636d196869991be14c3214f4b88a759a666aca818990e/68747470733a2f2f696d6775722e636f6d2f6a4175685844372e706e67">
+<h4 id="email">Email</h4>
+<img src="https://camo.githubusercontent.com/c308d7c40da9e55de41b7737375f6cfd15a7406c689cb15440e7ad6704d71333/68747470733a2f2f696d6775722e636f6d2f465a65657830782e706e67">
+<hr>
+<h5 id="div-aligncenterend-of-assignmentdiv"><div align="center">END OF ASSIGNMENT</div></h5>
+<hr>
+<h1 id="references">References</h1>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>"Buckets overview", AWS Documentation, https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingBucket.html <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>"What is IAM?", AWS Documentation, https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>"What is Amazon SES?", AWS Documentation, https://docs.aws.amazon.com/ses/latest/dg/Welcome.html <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>"AWS Lambda" , AWS Documentation, https://aws.amazon.com/lambda/ <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+  </div>
+</body>
+
+</html>
