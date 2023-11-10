@@ -1,0 +1,375 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Source Software Engg. - Assignment 1</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#introduction-to-open-source-software">Introduction to Open Source Software</a></li>
+<li><a href="#the-kubernetes-project">The Kubernetes Project</a>
+<ul>
+<li><a href="#introduction-and-history-of-the-movement">Introduction and History of the Movement</a></li>
+<li><a href="#features-of-kubernetes">Features of Kubernetes</a></li>
+<li><a href="#components-of-kubernetes">Components of Kubernetes</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <div align="center">
+<h1>
+Assignment 1<br>An Abstract Report on the Kubernetes Project<br><br>Open Source Software Engineering<br>S1-23_SEZG587<br>
+</h1>
+</div>
+<br>
+<div align="center">
+SUBMITTED IN PARTIAL FULFILMENT OF THE REQUIREMENT FOR THE
+AWARD OF THE DEGREE OF <br>
+<h3>
+MASTER OF TECHNOLOGY
+<br>
+(SOFTWARE ENGINEERING)
+</h3>
+</div>
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/BITS_Pilani-Logo.svg/200px-BITS_Pilani-Logo.svg.png">
+</div>
+<br>
+<div align="center">
+Submitted To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted By:
+<br>
+Kumar Manish
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Harshit Jindal
+<br>
+(Lead Instructor)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2022MT93524
+</div>
+<br>
+<div align="center"><h3>
+DEPARTMENT OF COMPUTER SCIENCE AND INFORMATION SYSTEMS<br>
+BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE, PILANI<br>
+SESSION 2023-24
+</h3> </div><br>
+<hr>
+<p>This assignment can be best viewed at my website <a href="http://harshitjindal.com/bits_pilani/osse/assignment1">here</a>.</p>
+<hr>
+<h1 id="declaration">Declaration</h1>
+<p>This assignment is a presentation of my original work. Wherever contributions of others are involved, every effort is made to indicate this clearly, with due reference to the literature, and acknowledgement of collaborative research and discussions.</p>
+<p>Dated: November 10, 2023</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#introduction-to-open-source-software">Introduction to Open Source Software</a></li>
+<li><a href="#the-kubernetes-project">The Kubernetes Project</a>
+<ul>
+<li><a href="#introduction-and-history-of-the-movement">Introduction and History of the Movement</a></li>
+<li><a href="#features-of-kubernetes">Features of Kubernetes</a></li>
+<li><a href="#components-of-kubernetes">Components of Kubernetes</a>
+<ul>
+<li><a href="#kubernetes-api-kube-apiserver">Kubernetes API (kube-apiserver)</a></li>
+<li><a href="#kubernetes-objects">Kubernetes Objects</a></li>
+<li><a href="#pods">Pods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ol>
+<h1 id="introduction-to-open-source-software">Introduction to Open Source Software</h1>
+<p>Open Source Software is used to refer to software that is freely available for use, modification and redistribution. This makes it an attractive option for personal as well as commercial use. Most paid software today has some or the other open source alternative, with the motivation of contributing to the community good. For example, Adobe Photoshop, a paid software, has an alternative Gimp which is free and open source. Similarly, MS Office has Libre Office.</p>
+<p>Amongst the many advantages of open source software, a few of the most prominent ones are that it encourages collaboration, promotes transparency, reduces cost due to it being free, and giving the users the flexibility to use it however they require. Contributions to open source software is also widely recognized as giving back to the community, in fact, some big-tech organizations even promote open source software by running programs like the prestigious Google Summer of Code. Many developers also see it as an opportunity to highlight their work, and to learn tech stacks by contribution to a real life projects with real users and tangible impacts.</p>
+<h1 id="the-kubernetes-project">The Kubernetes Project</h1>
+<h2 id="introduction-and-history-of-the-movement">Introduction and History of the Movement</h2>
+<div align="center">
+<img src="https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png" width="100">
+<br>The Kubernetes Logo
+</div>
+<p>Also known as K8s, Kubernetes is an open source system for managing  <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">containerized applications</a>  across multiple hosts. It provides basic mechanisms for the deployment, maintenance, and scaling of applications. <sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup></p>
+<p>The now widely popular Kubernetes project was developed by Google based on their experience with an internal tool for container orchestration called <a href="https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/">Borg</a>. While Borg was working fine for their own usecase, it had massive resource requirements, something which not everyone had. This led to Google to create Kubernetes, with the following design-factors coming directly from their learnings with Borg: <sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup></p>
+<ol>
+<li>
+<p><strong>Pods:</strong></p>
+<ul>
+<li>It is the core scheduling unit in Kubernetes.</li>
+<li>It allows several containers to be grouped together, which enables collective scheduling.</li>
+</ul>
+</li>
+<li>
+<p><strong>Services:</strong></p>
+<ul>
+<li>Kubernetes supports naming and load balancing through services.</li>
+<li>Service abstraction can be mapped to a dynamic set of pods via label selectors.</li>
+</ul>
+</li>
+<li>
+<p><strong>Labels:</strong></p>
+<ul>
+<li>Kubernetes uses labels to provide flexibility in managing the services or subsets of tasks within a collection.</li>
+<li>It is extremely useful for scenarios which require uniform management of related service instances.</li>
+</ul>
+</li>
+<li>
+<p><strong>IP-per-Pod:</strong></p>
+<ul>
+<li>In Borg, tasks on a machine share the host’s IP address, which imposes a burden on the infrastructure and app developers.</li>
+<li>Kubernetes assigns an IP at the POD level to address this challenge.</li>
+</ul>
+</li>
+</ol>
+<p>Development of Kubernetes also allowed Google to provide a tool like Borg to best serve the needs of Google Cloud customers. Kubernetes was later open-sourced in 2014, and is now maintained by the Cloud Native Computing Foundation (<a href="https://www.cncf.io/about">CNCF</a>).</p>
+<h2 id="features-of-kubernetes">Features of Kubernetes</h2>
+<p>With it being open source, and with the powerful backing of Google and CNCF, Kubernetes has become an extremely feature-rich and mature container orchestrator, with the following being some of it’s most notable features: <sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup></p>
+<ol>
+<li>
+<p><strong>Automated Rollouts and Rollbacks:</strong></p>
+<ul>
+<li>Kubernetes smoothly updates your app and monitors its health.</li>
+<li>Rollbacks occur if issues arise, ensuring stability.</li>
+<li>Benefit from a growing range of deployment solutions in the ecosystem.</li>
+</ul>
+</li>
+<li>
+<p><strong>Service Discovery and Load Balancing:</strong></p>
+<ul>
+<li>Kubernetes assigns IPs and DNS names to Pods for easy service discovery.</li>
+<li>Enables seamless load balancing across Pods.</li>
+</ul>
+</li>
+<li>
+<p><strong>Storage Orchestration:</strong></p>
+<ul>
+<li>Automatically mounts storage from various sources like local, cloud, or network systems.</li>
+</ul>
+</li>
+<li>
+<p><strong>Self-Healing:</strong></p>
+<ul>
+<li>Restarts, replaces, and reschedules containers as needed.</li>
+<li>Ensures containers are ready before advertising to clients.</li>
+</ul>
+</li>
+<li>
+<p><strong>Secret and Configuration Management:</strong></p>
+<ul>
+<li>Deploy and update secrets and configurations without rebuilding images.</li>
+<li>Maintains security by not exposing secrets in stack configurations.</li>
+</ul>
+</li>
+<li>
+<p><strong>Automatic Bin Packing:</strong></p>
+<ul>
+<li>Places containers based on resource requirements without sacrificing availability.</li>
+<li>Optimizes resource utilization by mixing critical and best-effort workloads.</li>
+</ul>
+</li>
+<li>
+<p><strong>Batch Execution:</strong></p>
+<ul>
+<li>Manages batch and CI workloads, replacing failing containers if necessary.</li>
+</ul>
+</li>
+<li>
+<p><strong>Horizontal Scaling:</strong></p>
+<ul>
+<li>Easily scale applications up or down via commands, UI, or automatically based on the demand.</li>
+</ul>
+</li>
+<li>
+<p><strong>IPv4/IPv6 Dual-Stack:</strong></p>
+<ul>
+<li>Allocates both IPv4 and IPv6 addresses to Pods and Services so the user has the choice to use whichever is more suitable.</li>
+</ul>
+</li>
+<li>
+<p><strong>Designed for Extensibility:</strong></p>
+<ul>
+<li>Enhance Kubernetes cluster features without altering upstream source code.</li>
+</ul>
+</li>
+</ol>
+<h2 id="components-of-kubernetes">Components of Kubernetes</h2>
+<p>All of the goodness of Kubernetes is made possible by its underlying components, which are depicted below:</p>
+<img src="https://kubernetes.io/images/docs/components-of-kubernetes.svg">
+<blockquote>
+<p>Image source: Offical Kubernetes Documentation</p>
+</blockquote>
+<p>Any functional deployment of Kubernetes is in the form of a cluster, each of which has one or more worker machines called <strong>worker nodes</strong>. These nodes are what contain the “containerized applications”, for example using Docker images. The primary purpose of these worker nodes is to host the application in what’s called a <strong>pod</strong> (discussed in detail later).</p>
+<p>There is a <strong>control plane</strong> that manages the worker nodes and the Pods in the cluster. In production environments, the control plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability. <sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup></p>
+<p>This control place also has an <strong>API server</strong> whose primary purpose is to expose the Kubernetes API which serves as the frontend to interact with the control plane.</p>
+<p>To summarize, a Kubernetes deployment is called a Kubernetes cluster, and can be thought of as the following major parts:</p>
+<ol>
+<li><strong>Control plane</strong>: Manages the worker nodes and pods in the cluster.</li>
+<li><strong>Worker Node(s)</strong>: A cluster will have at least one worker node, and each node is responsible for hosting the containerized application in pods.</li>
+<li><strong>API Server</strong>: A component of the conrol plane which exposes the Kubernetes API.</li>
+</ol>
+<hr>
+<p>Now that the prerequisites are discussed, the components of a Kubernetes cluster are:</p>
+<ul>
+<li>
+<p><strong>Control Plane Components</strong>:</p>
+<ul>
+<li>kube-apiserver
+<ul>
+<li>The Kubernetes API server.</li>
+<li>Front-end to the cluster’s shared state.</li>
+</ul>
+</li>
+<li>etcd
+<ul>
+<li>Distributed key-value store that stores configuration data for the cluster.</li>
+<li>Ensures consistent and reliable cluster state.</li>
+</ul>
+</li>
+<li>kube-scheduler
+<ul>
+<li>Assigns nodes to newly created pods.</li>
+<li>Considers resource requirements and constraints.</li>
+<li>Supports multiple scheduling algorithms.</li>
+</ul>
+</li>
+<li>kube-controller-manager
+<ul>
+<li>Manages controllers that regulate the state of the cluster.</li>
+<li>Examples include replication controller and endpoint controller.</li>
+</ul>
+</li>
+<li>cloud-controller-manager
+<ul>
+<li>Extends the cluster with cloud provider-specific control logic.</li>
+<li>Allows cloud providers to interact with the cluster.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Worker Node Components</strong>:</p>
+<ul>
+<li>kubelet
+<ul>
+<li>Node agent that ensures containers are running on a node.</li>
+<li>Manages pods and their containers.</li>
+<li>Communicates with the API server.</li>
+</ul>
+</li>
+<li>kube-proxy
+<ul>
+<li>Maintains network rules on nodes.</li>
+<li>Enables communication across the cluster.</li>
+<li>Implements Kubernetes service concepts.</li>
+</ul>
+</li>
+<li>Container runtime
+<ul>
+<li>Software responsible for running containers.</li>
+<li>Examples include Docker, containerd, and CRI-O.</li>
+<li>Handles container lifecycle, image deployment, and resource isolation.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>A few components that warrant delving in more detail are listed below:</p>
+<h3 id="kubernetes-api-kube-apiserver">1. Kubernetes API (kube-apiserver)</h3>
+<ul>
+<li><strong>Definition:</strong> The control plane component that exposes the Kubernetes API.</li>
+<li><strong>Functionality:</strong>
+<ul>
+<li>Allows users and controllers to communicate with the cluster.</li>
+<li>Serves as the entry point for all operations in the cluster.</li>
+</ul>
+</li>
+<li><strong>Key Features:</strong>
+<ul>
+<li>Validates and processes RESTful requests.</li>
+<li>Serves as the hub for communication between other components.</li>
+<li>Authenticates and authorizes incoming requests.</li>
+</ul>
+</li>
+</ul>
+<h3 id="kubernetes-objects">2. Kubernetes Objects</h3>
+<ul>
+<li><strong>Definition:</strong> Entities representing the state of the cluster.</li>
+<li><strong>Examples:</strong>
+<ul>
+<li>Pods, Services, Replication Controllers.</li>
+</ul>
+</li>
+<li><strong>Functionality:</strong>
+<ul>
+<li>Described in YAML or JSON files.</li>
+<li>Defines the desired state and characteristics of applications.</li>
+</ul>
+</li>
+<li><strong>Significance:</strong>
+<ul>
+<li>Managed and maintained by the Kubernetes API.</li>
+<li>Changes to objects trigger the desired state in the cluster.</li>
+</ul>
+</li>
+</ul>
+<h3 id="pods">3. Pods</h3>
+<ul>
+<li><strong>Definition:</strong> The smallest deployable units in Kubernetes.</li>
+<li><strong>Composition:</strong>
+<ul>
+<li>Can contain one or more containers that share the same network namespace.</li>
+<li>Containers in the same pod are scheduled together on the same machine.</li>
+</ul>
+</li>
+<li><strong>Use Cases:</strong>
+<ul>
+<li>Support co-located and co-operating processes.</li>
+<li>Facilitate communication and shared state between containers.</li>
+</ul>
+</li>
+<li><strong>Management:</strong>
+<ul>
+<li>Managed by the Kubernetes API.</li>
+<li>Can be scaled horizontally to meet application requirements.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="div-aligncenterend-of-assignmentdiv"><div align="center">END OF ASSIGNMENT</div></h5>
+<hr>
+<h1 id="references">References</h1>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Official GitHub Kubernetes Project, https://github.com/kubernetes/kubernetes <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>"Borg: The Predecessor to Kubernetes", April 23, 2015, https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/ <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>"Kubernetes Features", Official Kubernetes Documentation, https://kubernetes.io <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>"Kubernetes Components", Official Kubernetes Documentation, https://kubernetes.io/docs/concepts/overview/components/ <a href="#fnref4" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+  </div>
+</body>
+
+</html>
