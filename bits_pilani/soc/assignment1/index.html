@@ -1,0 +1,670 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Oriented Computing - Assignment 1</title>
+  <script type="text/javascript" nonce="bf6b562361b748ffbbd59bcd963" src="//local.adguard.org?ts=1699751397361&amp;type=content-script&amp;dmn=taxila-aws.bits-pilani.ac.in&amp;url=https%3A%2F%2Ftaxila-aws.bits-pilani.ac.in%2Fpluginfile.php%2F784246%2Fassignsubmission_file%2Fsubmission_files%2F1018483%2FHarshit%2520Jindal%2520-%2520Doggie%2520Go%2520Walkie.html%3Fforcedownload%3D1&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script>
+<script type="text/javascript" nonce="bf6b562361b748ffbbd59bcd963" src="//local.adguard.org?ts=1699751397361&amp;name=AdGuard%20Extra&amp;type=user-script"></script><link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#problem-statement">Problem Statement</a>
+<ul>
+<li><a href="#design">Design</a></li>
+<li><a href="#implementation-of-service-endpoints">Implementation of Service Endpoints</a></li>
+<li><a href="#api-gateway">API Gateway</a></li>
+</ul>
+</li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#execution-instructions">Execution Instructions</a></li>
+<li><a href="#steps">Steps</a>
+<ul>
+<li><a href="#part-1-design">Part 1: Design</a></li>
+<li><a href="#part-2.1-implementation-of-service-endpoints">Part 2.1: Implementation of Service Endpoints</a></li>
+<li><a href="#part-2.2-api-gateway">Part 2.2: API Gateway</a></li>
+</ul>
+</li>
+<li><a href="#demo">Demo</a>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <div align="center">
+<h1>
+Assignment 1<br>DESIGN AND IMPLEMENTATION<br>OF AN SOA APPLICATION<br><br>
+Service Oriented Computing<br>S1-23_SEZG533<br>
+</h1>
+</div>
+<br>
+<div align="center">
+SUBMITTED IN PARTIAL FULFILMENT OF THE REQUIREMENT FOR THE
+AWARD OF THE DEGREE OF <br>
+<h3>
+MASTER OF TECHNOLOGY
+<br>
+(SOFTWARE ENGINEERING)
+</h3>
+</div>
+<div align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/BITS_Pilani-Logo.svg/200px-BITS_Pilani-Logo.svg.png">
+</div>
+<br>
+<div align="center">
+Submitted To: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Submitted By:
+<br>
+Akshaya Ganesan
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Harshit Jindal
+<br>
+(Lead Instructor)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2022MT93524
+</div>
+<br>
+<div align="center"><h3>
+DEPARTMENT OF COMPUTER SCIENCE AND INFORMATION SYSTEMS<br>
+BIRLA INSTITUTE OF TECHNOLOGY AND SCIENCE, PILANI<br>
+SESSION 2023-24
+</h3> </div><br>
+<hr>
+<h1 id="declaration">Declaration</h1>
+<p>This assignment is a presentation of my original work. Wherever contributions of others are involved, every effort is made to indicate this clearly, with due reference to the literature, and acknowledgement of collaborative research and discussions.</p>
+<p>Dated: November 12, 2023</p>
+<hr>
+<p><strong>NOTE: This assignment can be viewed best at my website <a href="https://harshitjindal.com/bits_pilani/soa/assignment1">here</a>.</strong></p>
+<hr>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#problem-statement">Problem Statement</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#execution-instructions">Execution Instructions</a></li>
+<li><a href="#steps">Steps</a>
+<ul>
+<li><a href="#part-1-design">Part 1: Design</a></li>
+<li><a href="#part-2.1-implementation-of-service-endpoints">Part 2.1: Implementation of Service Endpoints</a></li>
+<li><a href="#part-2.2-api-gateway">Part 2.2: API Gateway</a></li>
+</ul>
+</li>
+<li><a href="#demo">Demo</a></li>
+<li><a href="#references">References</a></li>
+</ol>
+<h1 id="problem-statement">Problem Statement</h1>
+<p>The high level objective is to design and implement a service-based application for any application of choice. The task can be broken down into the following parts.</p>
+<h2 id="design">Design</h2>
+<p>Design a service-oriented architecture and define the REST API endpoints for the application of your choice.</p>
+<ul>
+<li>Identify the basic capabilities of the application based on the core practical use case of the application.</li>
+<li>Once the different entities and models in the application are figured out, split them into individual resources and describe them.</li>
+<li>Name the resource and define the operations that can be performed for each resource.</li>
+<li>For each operation, design the URI and choose the appropriate HTTP method and headers required.</li>
+<li>Design the representation(s) accepted by the client and the representation(s) served to the client.</li>
+<li>Categorize the resources based on their type.</li>
+</ul>
+<h2 id="implementation-of-service-endpoints">Implementation of Service Endpoints</h2>
+<p>For the service-oriented architecture and the REST API endpoints for the application designed in Part 1, Implement a functional prototype of the application of choice, demonstrating its key requirements.</p>
+<p>Choose the core important resources defined in Part 1 and implement them.</p>
+<h2 id="api-gateway">API Gateway</h2>
+<p>As part of the implementation process for the service-oriented application, the task is to design and develop an API Gateway that acts as a single entry point for all client requests and routes them to the corresponding services.</p>
+<p>The API Gateway should be a central component to handle routing and ensure seamless communication between clients and the underlying services.</p>
+<p>Depending on the application design, authentication may be handled at the API gateway or other methods may be used.</p>
+<p>Custom API gateways may be created that satisfy basic needs like routing or use open-source API gateways or cloud provider API gateways.</p>
+<h1 id="methodology">Methodology</h1>
+<p>To achieve the aforementioned goals of this assignment, in addition to my love for animals, an application for a dog walking service called <em>Doggie Go Walkie</em> is built based on a service oriented architecture.</p>
+<p>The purpose of the application is to allow pet parents to be able to ensure their beloved pets get the right amount of mental stimulation and physical exercise even if they are unable to take them out for walks on some days due to temporary busy-schedules or medical problems. With <em>Doggie Go Walkie</em>, they can do so by hiring other dog lovers to take their dogs out for walks and to play with them, ensuring the pets’ needs are met regardless of factors such as the owners being busy or no longer being physically able to do so themselves, such as for older people.</p>
+<p>To build the backend services for this application, the following tech stack is used:</p>
+<ul>
+<li>Programming Language: <code>Python 3.9</code></li>
+<li>Backend Framework: <code>Flask 3.0.0</code> and a custom implementation of JWT from scratch for authentication</li>
+<li>Cloud Providers: <code>Python Anywhere</code> for hosting</li>
+<li>Database: <code>SQLite</code> for persistent storage of application data</li>
+</ul>
+<p>The detailed list of all the dependencies along with their versions used in the project is available in the <a href="https://github.com/harshitjindal/Doggie-Go-Walkie/blob/main/requirements.txt">requirements.txt</a> file in the GitHub Repo for this project at <a href="https://github.com/harshitjindal/Doggie-Go-Walkie">https://github.com/harshitjindal/Doggie-Go-Walkie</a>.</p>
+<p>The Flask application backend is also be deployed to <a href="https://harshitjindal.pythonanywhere.com/">https://harshitjindal.pythonanywhere.com/</a>.</p>
+<h1 id="execution-instructions">Execution Instructions</h1>
+<p>In order to execute the code on your system, follow these steps:</p>
+<ol>
+<li>Install Python 3.9 from <a href="http://python.org">http://python.org</a></li>
+<li>Clone the repository from GitHub <a href="https://github.com/harshitjindal/Doggie-Go-Walkie">link</a> and <code>cd</code> into it</li>
+<li>Create a python virtual environment with <code>python -m venv DoggieGoWalkie</code></li>
+<li>Activate the virtual environment with <code>source bin/activate</code> on a *nix system such as Linux or macOS</li>
+<li>Install the dependencies with <code>python -m pip install -r requirements.txt</code></li>
+<li>Run the application with <code>python app.py</code></li>
+<li>Use postman to test</li>
+</ol>
+<h1 id="steps">Steps</h1>
+<h2 id="part-1-design">Part 1: Design</h2>
+<h3 id="basic-capabilities">Basic Capabilities</h3>
+<p>The basic capabilities for <em>Doggie Go Walkie</em> are listed below:</p>
+<ol>
+<li>
+<p><strong><code>User</code> Role</strong>:</p>
+<ul>
+<li>Create new account</li>
+<li>Login and logout of the account</li>
+<li>Schedule a walk</li>
+<li>View scheduled walks</li>
+<li>Cancel a walk</li>
+<li>Track a walk</li>
+</ul>
+</li>
+<li>
+<p><strong><code>Walker</code> Role</strong>:</p>
+<ul>
+<li>Create new account</li>
+<li>Login and logout of the account</li>
+<li>View assigned walk requests</li>
+<li>Start and end walk sessions</li>
+</ul>
+</li>
+</ol>
+<h3 id="resources-and-operations">Resources and Operations:</h3>
+<ol>
+<li>
+<p><strong><code>User</code> Resource:</strong></p>
+<ul>
+<li>Resource Name: <code>/users</code></li>
+<li>Operations:
+<ul>
+<li><code>POST</code>: Create a new user account.
+<ul>
+<li>URI: <code>/users</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Content-Type (application/json)</li>
+</ul>
+</li>
+<li><code>POST</code>: Login to the user account.
+<ul>
+<li>URI: <code>/users/login</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Content-Type (application/json)</li>
+</ul>
+</li>
+<li><code>POST</code>: Logout from the user account.
+<ul>
+<li>URI: <code>/users/logout</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+<li><code>POST</code>: Schedule a walk.
+<ul>
+<li>URI: <code>/users/{user_id}/walks</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Authorization (Bearer token), Content-Type (application/json)</li>
+</ul>
+</li>
+<li><code>GET</code>: View scheduled walks.
+<ul>
+<li>URI: <code>/users/{user_id}/walks</code></li>
+<li>Method: <code>GET</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+<li><code>DELETE</code>: Cancel a walk.
+<ul>
+<li>URI: <code>/users/{user_id}/walks/{walk_id}</code></li>
+<li>Method: <code>DELETE</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+<li><code>GET</code>: Track a walk.
+<ul>
+<li>URI: <code>/users/{user_id}/walks/{walk_id}/track</code></li>
+<li>Method: <code>GET</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>Walker</code> Resource:</strong></p>
+<ul>
+<li>Resource Name: <code>/walkers</code></li>
+<li>Operations:
+<ul>
+<li><code>POST</code>: Create a new walker account.
+<ul>
+<li>URI: <code>/walkers</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Content-Type (application/json)</li>
+</ul>
+</li>
+<li><code>POST</code>: Login to the walker account.
+<ul>
+<li>URI: <code>/walkers/login</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Content-Type (application/json)</li>
+</ul>
+</li>
+<li><code>POST</code>: Logout from the walker account.
+<ul>
+<li>URI: <code>/walkers/logout</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+<li><code>GET</code>: View assigned walk requests.
+<ul>
+<li>URI: <code>/walkers/{walker_id}/walk-requests</code></li>
+<li>Method: <code>GET</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+<li><code>POST</code>: Start a walk session.
+<ul>
+<li>URI: <code>/walkers/{walker_id}/walk-requests/{walk_id}/start</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+<li><code>POST</code>: End a walk session.
+<ul>
+<li>URI: <code>/walkers/{walker_id}/walk-requests/{walk_id}/end</code></li>
+<li>Method: <code>POST</code></li>
+<li>Headers: Authorization (Bearer token)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>In the context of a RESTful API design, resources typically represent the key entities that the system manages. In the <em>DoggieGoWalkie</em> application, <code>walks</code> can also be considered as resources.</p>
+<h3 id="representations">Representations:</h3>
+<h4 id="representations-accepted-by-the-client-request-bodies">Representations Accepted by the Client (Request Bodies):</h4>
+<ul>
+<li>These are the data formats that the client sends to the server when making requests.</li>
+<li>Request bodies typically contain information that the server needs to perform a specific operation or action.</li>
+<li>The client constructs these representations to communicate its intentions to the server.</li>
+<li>Examples include data sent when creating a new user, scheduling a walk, or updating information.</li>
+</ul>
+<h4 id="representations-served-to-the-client-response-bodies">Representations Served to the Client (Response Bodies):</h4>
+<ul>
+<li>These are the data formats that the server sends back to the client in response to a request.</li>
+<li>Response bodies contain the results of the requested operation or information requested by the client.</li>
+<li>The server constructs these representations to provide feedback, data, or status to the client.</li>
+<li>Examples include data returned when retrieving user information, viewing scheduled walks, or confirming the completion of a walk.</li>
+</ul>
+<br>
+<ol>
+<li>
+<p><strong>Create a new account:</strong><br>
+Request Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"username"</span><span class="token punctuation">:</span> <span class="token string">"example_user"</span><span class="token punctuation">,</span> 
+	<span class="token string">"password"</span><span class="token punctuation">:</span> <span class="token string">"secure_password"</span><span class="token punctuation">,</span> 
+	<span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"John Doe"</span><span class="token punctuation">,</span>
+	<span class="token string">"address"</span><span class="token punctuation">:</span> <span class="token string">"#7 Race Course Road, New Delhi, 110011"</span><span class="token punctuation">,</span>
+	<span class="token string">"phone"</span><span class="token punctuation">:</span> <span class="token string">"+91 9999977777"</span><span class="token punctuation">,</span>
+	<span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Response Status Code: <code>201 Created</code> - This status code indicates that the request was successful, and a new resource has been created.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"user_id"</span><span class="token punctuation">:</span> <span class="token string">"unique_user_id"</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Login to the account:</strong><br>
+Request Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"username"</span><span class="token punctuation">:</span> <span class="token string">"example_user"</span><span class="token punctuation">,</span>
+	<span class="token string">"password"</span><span class="token punctuation">:</span> <span class="token string">"secure_password"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the login operation was successful.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"access_token"</span><span class="token punctuation">:</span> <span class="token string">"generated_access_token"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Logout from the account:</strong><br>
+Request body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"access_token"</span><span class="token punctuation">:</span> <span class="token string">"generated_access_token"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the logout operation was successful.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Logout successful"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Schedule a walk:</strong><br>
+Request body just needs to contain <code>access_token</code> and <code>scheduled_time</code> because the URI contains the <code>{user_id}</code>:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"access_token"</span><span class="token punctuation">:</span> <span class="token string">"access_token"</span><span class="token punctuation">,</span>
+	<span class="token string">"scheduled_time"</span><span class="token punctuation">:</span> <span class="token string">"2023-12-01T08:00:00"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Response Status Code: <code>201 Created</code> - This status code indicates that the walk has been scheduled.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"walk123"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>View scheduled walk:</strong><br>
+Request body just needs to contain <code>access_token</code> because the URI contains the <code>{user_id}</code> or the <code>{walker_id}</code>.</p>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the scheduled walks have been returned.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+  <span class="token string">"walks"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"scheduled_time"</span><span class="token punctuation">:</span> <span class="token string">"2023-12-01T08:00:00"</span><span class="token punctuation">,</span>
+      <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"scheuled"</span><span class="token punctuation">,</span>
+      <span class="token string">"user_id"</span><span class="token punctuation">:</span> <span class="token string">"harshitjindal1"</span><span class="token punctuation">,</span>
+      <span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"GOGBTXOQSGCZ"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">"scheduled_time"</span><span class="token punctuation">:</span> <span class="token string">"2023-12-04T08:00:00"</span><span class="token punctuation">,</span>
+      <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"scheuled"</span><span class="token punctuation">,</span>
+      <span class="token string">"user_id"</span><span class="token punctuation">:</span> <span class="token string">"rohanbajaj2"</span><span class="token punctuation">,</span>
+      <span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"LTBMWXSEAQBM"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Start a walk session:</strong><br>
+Request body just needs to contain <code>access_token</code> of a walker because the URI contains the <code>{walk_id}</code>.</p>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the walk session has started.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"walk123"</span><span class="token punctuation">,</span>  
+	<span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"started"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>End a walk session:</strong><br>
+Request body just needs to contain <code>access_token</code> of a walker because the URI contains the <code>{walk_id}</code>.</p>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the walk session has ended.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"walk123"</span><span class="token punctuation">,</span>  
+	<span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"ended"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Track a walk session:</strong><br>
+Request body just needs to contain <code>access_token</code> of a user because the URI contains the <code>{walk_id}</code>.</p>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the walk session information has been successfully retrieved…</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"walk123"</span><span class="token punctuation">,</span>  
+	<span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"in_progress"</span><span class="token punctuation">,</span>  
+	<span class="token string">"current_location"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">"latitude"</span><span class="token punctuation">:</span> <span class="token number">37.7749</span><span class="token punctuation">,</span> <span class="token string">"longitude"</span><span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">122.4194</span><span class="token punctuation">}</span><span class="token punctuation">,</span>  
+	<span class="token string">"estimated_duration"</span><span class="token punctuation">:</span> <span class="token string">"1 hour"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Cancel a walk:</strong><br>
+Request body can be empty because the URI contains the <code>{walk_id}</code>.</p>
+<p>Response Status Code: <code>200 OK</code> - This status code indicates that the walk session has been cancelled.</p>
+<p>Response Body:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+	<span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">"walk123"</span><span class="token punctuation">,</span>  
+	<span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"cancelled"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+</ol>
+<h2 id="part-2.1-implementation-of-service-endpoints">Part 2.1: Implementation of Service Endpoints</h2>
+<p>The complete code is available at the GitHub repo mentioned in the <a href="#methodology">methodology</a> section above, however, the snippets for each service are listed below.</p>
+<h3 id="create-user">Create User</h3>
+<pre class=" language-python"><code class="prism  language-python">users <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+walkers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token comment">## Create new user</span>
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/users'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">create_user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    new_user_data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    user_id <span class="token operator">=</span> new_user_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>user<span class="token punctuation">[</span><span class="token string">"user_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"User already exists"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">400</span>
+
+    new_user <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"user_id"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"username"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"password"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"role"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"access_token"</span><span class="token punctuation">:</span> app_secrets<span class="token punctuation">.</span>FLASK_SECRET_KEY
+    <span class="token punctuation">}</span>
+
+    users<span class="token punctuation">.</span>append<span class="token punctuation">(</span>new_user<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"user_id"</span><span class="token punctuation">:</span> new_user<span class="token punctuation">[</span><span class="token string">"user_id"</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">201</span>
+</code></pre>
+<h3 id="create-walker">Create Walker</h3>
+<pre class=" language-python"><code class="prism  language-python">users <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+walkers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token comment">## Create new walker</span>
+@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/walkers'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">create_walker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    new_user_data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    user_id <span class="token operator">=</span> new_user_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> walker <span class="token keyword">in</span> walkers<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>walker<span class="token punctuation">[</span><span class="token string">"user_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> user_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Walker already exists"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">400</span>
+
+    new_user <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token string">"user_id"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"username"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"password"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"role"</span><span class="token punctuation">:</span> new_user_data<span class="token punctuation">[</span><span class="token string">"role"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"access_token"</span><span class="token punctuation">:</span> app_secrets<span class="token punctuation">.</span>FLASK_SECRET_KEY
+
+    <span class="token punctuation">}</span>
+
+    walkers<span class="token punctuation">.</span>append<span class="token punctuation">(</span>new_user<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"user_id"</span><span class="token punctuation">:</span> new_user<span class="token punctuation">[</span><span class="token string">"user_id"</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">201</span>
+</code></pre>
+<h3 id="user-login">User Login</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/users/login'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">login_user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    login_data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    access_token <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>string<span class="token punctuation">.</span>ascii_uppercase<span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> user<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">==</span> login_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">and</span> user<span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span> <span class="token operator">==</span> login_data<span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            user<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">=</span> access_token
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"access_token"</span><span class="token punctuation">:</span> access_token<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">200</span>
+
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid username or password"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="walker-login">Walker Login</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/walkers/login'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">login_walker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    login_data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    access_token <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>string<span class="token punctuation">.</span>ascii_uppercase<span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> walker <span class="token keyword">in</span> walkers<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> walker<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">==</span> login_data<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">and</span> walker<span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span> <span class="token operator">==</span> login_data<span class="token punctuation">[</span><span class="token string">"password"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            walker<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">=</span> access_token
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"access_token"</span><span class="token punctuation">:</span> access_token<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">200</span>
+
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid username or password"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="user-logout">User Logout</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/users/&lt;username&gt;/logout'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">logout_user</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> user<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">==</span> username <span class="token operator">and</span> user<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            user<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">=</span> app_secrets<span class="token punctuation">.</span>FLASK_SECRET_KEY
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Logout successful"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">200</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="walker-logout">Walker Logout</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/walkers/&lt;username&gt;/logout'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">logout_walker</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> walker <span class="token keyword">in</span> walkers<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> walker<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">==</span> username <span class="token operator">and</span> walker<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            walker<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">=</span> app_secrets<span class="token punctuation">.</span>FLASK_SECRET_KEY
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"message"</span><span class="token punctuation">:</span> <span class="token string">"Logout successful"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">200</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="schedule-walks">Schedule Walks</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/users/&lt;username&gt;/walks'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">create_walk</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> user<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">==</span> username <span class="token operator">and</span> user<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            new_walk <span class="token operator">=</span> <span class="token punctuation">{</span>
+                <span class="token string">"walk_id"</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>random<span class="token punctuation">.</span>choice<span class="token punctuation">(</span>string<span class="token punctuation">.</span>ascii_uppercase<span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">"user_id"</span><span class="token punctuation">:</span> username<span class="token punctuation">,</span>
+                <span class="token string">"scheduled_time"</span><span class="token punctuation">:</span> data<span class="token punctuation">[</span><span class="token string">"scheduled_time"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"scheuled"</span>
+            <span class="token punctuation">}</span>
+            walks<span class="token punctuation">.</span>append<span class="token punctuation">(</span>new_walk<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"walk_id"</span><span class="token punctuation">:</span> new_walk<span class="token punctuation">[</span><span class="token string">"walk_id"</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">201</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="view-scheduled-walks">View Scheduled Walks</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/users/&lt;username&gt;/walks'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'GET'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">get_user_walks</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> user<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">==</span> username <span class="token operator">and</span> user<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"walks"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>walk <span class="token keyword">for</span> walk <span class="token keyword">in</span> walks <span class="token keyword">if</span> walk<span class="token punctuation">[</span><span class="token string">"user_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> username<span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">200</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="start-a-walk">Start A Walk</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/walkers/&lt;walker_id&gt;/walk-requests/&lt;walk_id&gt;/start'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">start_walk_session</span><span class="token punctuation">(</span>walker_id<span class="token punctuation">,</span> walk_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> walker <span class="token keyword">in</span> walkers<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> walker<span class="token punctuation">[</span><span class="token string">"walker_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> walker_id <span class="token operator">and</span> walker<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            walk <span class="token operator">=</span> <span class="token builtin">next</span><span class="token punctuation">(</span><span class="token punctuation">(</span>walk <span class="token keyword">for</span> walk <span class="token keyword">in</span> walks <span class="token keyword">if</span> walk<span class="token punctuation">[</span><span class="token string">"walk_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> walk_id<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">if</span> walk<span class="token punctuation">:</span>
+                walk<span class="token punctuation">[</span><span class="token string">"status"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"started"</span>
+                <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span>walk<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Walk not found"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">404</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="end-a-walk">End A Walk</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/walkers/&lt;walker_id&gt;/walk-requests/&lt;walk_id&gt;/end'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'POST'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">end_walk_session</span><span class="token punctuation">(</span>walker_id<span class="token punctuation">,</span> walk_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> walker <span class="token keyword">in</span> walkers<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> walker<span class="token punctuation">[</span><span class="token string">"walker_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> walker_id <span class="token operator">and</span> walker<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            walk <span class="token operator">=</span> <span class="token builtin">next</span><span class="token punctuation">(</span><span class="token punctuation">(</span>walk <span class="token keyword">for</span> walk <span class="token keyword">in</span> walks <span class="token keyword">if</span> walk<span class="token punctuation">[</span><span class="token string">"walk_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> walk_id<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">if</span> walk<span class="token punctuation">:</span>
+                walk<span class="token punctuation">[</span><span class="token string">"status"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"ended"</span>
+                <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span>walk<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Walk not found"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">404</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h3 id="track-a-walk">Track A Walk</h3>
+<pre class=" language-python"><code class="prism  language-python">@app<span class="token punctuation">.</span>route<span class="token punctuation">(</span><span class="token string">'/users/&lt;user_id&gt;/walks/&lt;walk_id&gt;/track'</span><span class="token punctuation">,</span> methods<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">'GET'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">track_walk_session</span><span class="token punctuation">(</span>user_id<span class="token punctuation">,</span> walk_id<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    data <span class="token operator">=</span> request<span class="token punctuation">.</span>get_json<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> user <span class="token keyword">in</span> users<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> user<span class="token punctuation">[</span><span class="token string">"user_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> user_id <span class="token operator">and</span> user<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span> <span class="token operator">==</span> data<span class="token punctuation">[</span><span class="token string">"access_token"</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            walk <span class="token operator">=</span> <span class="token builtin">next</span><span class="token punctuation">(</span><span class="token punctuation">(</span>walk <span class="token keyword">for</span> walk <span class="token keyword">in</span> walks <span class="token keyword">if</span> walk<span class="token punctuation">[</span><span class="token string">"walk_id"</span><span class="token punctuation">]</span> <span class="token operator">==</span> walk_id<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">if</span> walk<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span>walk<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Walk not found"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">404</span>
+    <span class="token keyword">return</span> jsonify<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">"error"</span><span class="token punctuation">:</span> <span class="token string">"Invalid access token"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">401</span>
+</code></pre>
+<h2 id="part-2.2-api-gateway">Part 2.2: API Gateway</h2>
+<p>The API Gateway is implemented with Flask, which supports routing by creating encapsulating functions with <code>@app.route</code> decorators. For example, the API Gateway is running for this application at <a href="https://harshitjindal.pythonanywhere.com/">https://harshitjindal.pythonanywhere.com/</a> or <code>localhost:5000</code> by default when the execution instructions are followed to run the code locally.</p>
+<p>This gateway then supports routing to various URIs, such as (details URIs are defined above in the design section):</p>
+<ul>
+<li><a href="https://harshitjindal.pythonanywhere.com/users">https://harshitjindal.pythonanywhere.com/users</a> to create user account.</li>
+<li><a href="https://harshitjindal.pythonanywhere.com/users/login">https://harshitjindal.pythonanywhere.com/users/login</a> to login to an existing user account and generate the <code>access_token</code> required for all privileged actions.</li>
+<li><a href="https://harshitjindal.pythonanywhere.com/users/%7Buserid%7D/logout">https://harshitjindal.pythonanywhere.com/users/{userid}/logout</a> to logout user.</li>
+<li>etc.</li>
+</ul>
+<p>The core component ensuring that the application works safely is authentication, which is to validate if the user is actually who they say they are. For example, if a user is trying to login to account with username <code>john</code>, they need to prove that they are the ones that own that account by providing the password associated with it.</p>
+<p>The way authentication has been implemented in this application is by using tokens. When a user first creates an account, their user data gets stored at the backend. Now, once they try to login using the same credentials (username and password) that they used at the time of account creation, a token gets generated for them. This token is then expected to be used to authenticate them for all subsequent actions such as scheduling a walk, etc. When the user wishes to logout, this token is again used to ensure a random person cannot logout any other person without permission.</p>
+<p>Once logout action is performed with the correct token, the token becomes invalidated and cannot be used for any further actions until it is regenerated using the login action. All of this, of course, happens at the frontend framework, and is NOT done explicitly by the user, but is handled by the frontend application. For our testing, we use Postman to demonstrate this.</p>
+<h3 id="creation-of-new-user-account">Creation of new user account</h3>
+<p>User with username <code>harshitjindal1</code> is created.</p>
+<img src="https://camo.githubusercontent.com/06374952ff0efa35c83c02ee7bd1105fed00fcd724aead694a3d5ef1360dbbd7/68747470733a2f2f696d6775722e636f6d2f7774706a6936572e706e67">
+<h3 id="creation-of-user-that-already-exists">Creation of user that already exists</h3>
+<p>User with username <code>harshitjindal1</code> already exists.</p>
+<img src="https://camo.githubusercontent.com/73f443c646f6cc721e41ebd9c683d5391a229a3c346fecd62deffbbc73517865/68747470733a2f2f696d6775722e636f6d2f784a36456e31362e706e67">
+<h3 id="user-login-with-correct-credentials">User login with correct credentials</h3>
+<p>An <code>access_token</code> is generated when login was attempted with correct credentials.</p>
+<img src="https://camo.githubusercontent.com/973e2a0a108041f6e506a27bfac6a8ca1ea2f51914eb944e13ddc01681124d87/68747470733a2f2f696d6775722e636f6d2f6731423666335a2e706e67">
+<h3 id="user-login-attempt-with-incorrect-credentials">User login attempt with incorrect credentials</h3>
+<p>An error is thrown when login is attempted with incorrect credentials.</p>
+<img src="https://camo.githubusercontent.com/819f89f2c04855a942a19df9d8ee7d484c75b72a7fb5388a58893d1bce69d7ef/68747470733a2f2f696d6775722e636f6d2f507276693451302e706e67">
+<h3 id="user-logout-with-correct-access_token">User logout with correct <code>access_token</code></h3>
+<p>The <code>access_token</code> is invalidated once logout action is performed with the correct <code>access_token</code>. This also means this same token cannot be used to perform logout operation again.</p>
+<img src="https://camo.githubusercontent.com/bf2fc8519160a870ca4d3f883c298d3fdae569de8c6dfddfb2e8be9de68cf85e/68747470733a2f2f696d6775722e636f6d2f447753505a61532e706e67">
+<h3 id="user-logout-attempt-without-correct-access_token">User logout attempt without correct <code>access_token</code></h3>
+<p>Without the correct <code>access_token</code>, it cannot be invalidated. This is to protect someone logging out another user.</p>
+<img src="https://camo.githubusercontent.com/f9017729bcc394ae13cebfc784a38f6f0ddc2c80d1cd23cc0c2bf5d6c2cc7cb6/68747470733a2f2f696d6775722e636f6d2f4d4f446b3279432e706e67">
+<h3 id="performing-arbitrary-action-without-correct-access_token">Performing arbitrary action without correct <code>access_token</code></h3>
+<p>Without the correct <code>access_token</code>, no information can be viewed that might be confidential to another user. For example, I cannot view another user <code>John's</code> scheduled walks, or track a walk without the correct <code>access_token</code>.</p>
+<img src="https://camo.githubusercontent.com/b5409de3ae1e3f2009c29318ff6767de6d2dd44424923c6d2815b208805c2062/68747470733a2f2f696d6775722e636f6d2f656a5a675032792e706e67">
+<h1 id="demo">Demo</h1>
+<p>The demo video can be accessed via this <a href="https://harshitjindal.com/bits_pilani/soc/DoggieGoWalkieDemo">link</a>.<br>
+The backend has also been deployed to <em>Python Anywhere</em> cloud provider at <a href="https://harshitjindal.pythonanywhere.com/">https://harshitjindal.pythonanywhere.com/</a> and can be tested with Postman.</p>
+<hr>
+<h5 id="div-aligncenterend-of-assignmentdiv"><div align="center">END OF ASSIGNMENT</div></h5>
+<hr>
+<h1 id="references">References</h1>
+
+    </div>
+  </div>
+</body>
+
+</html>
