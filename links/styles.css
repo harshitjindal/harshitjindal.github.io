@@ -1,0 +1,74 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  padding: 3rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 80px;
+  font-size: 20px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button i {
+  font-size: 18px;
+}
+
+.resume {
+  background-color: #808080;
+}
+
+.education {
+  background-color: #FFA500;
+}
+
+.linkedin {
+  background-color: #0073b1;
+}
+
+.ielts {
+  background-color: #e1306c;
+}
+
+.leetcode {
+  background-color: #333;
+}
+
+.email {
+  background-color: #ff6f00;
+}
+
+button:hover {
+  opacity: 0.9;
+}
